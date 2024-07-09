@@ -4,8 +4,8 @@ type AppProps = {
   offersCount: number;
 };
 
-function App({ offersCount }: AppProps): JSX.Element {
-  return <MainScreen offersCount={offersCount} />;
-}
+const App = ({ offersCount }: AppProps): JSX.Element => (
+  <MainScreen offersCount={offersCount} />
+);
 
 export default App;
