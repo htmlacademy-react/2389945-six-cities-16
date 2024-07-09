@@ -1,10 +1,10 @@
 import PlaceCard from '../../components/place-card/place-card';
 
-type MainProps = {
+type MainScreenProps = {
   offersCount: number;
 };
 
-function MainScreen({ offersCount }: MainProps): JSX.Element {
+function MainScreen({ offersCount }: MainScreenProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <header className="header">
