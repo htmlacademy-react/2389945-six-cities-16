@@ -1,4 +1,4 @@
 export const OffersSettings = {
-  offersCount: 100,
+  offersCount: 5,
 };
 
