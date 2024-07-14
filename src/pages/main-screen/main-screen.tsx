@@ -1,4 +1,5 @@
 import PlaceCard from '../../components/place-card/place-card';
+import { OFFERS } from '../../mocks/offers';
 
 type MainScreenProps = {
   offersCount: number;
@@ -117,9 +118,8 @@ const MainScreen = ({ offersCount }: MainScreenProps): JSX.Element => (
               </ul>
             </form>
             <div className="cities__places-list places__list tabs__content">
-              {Array.from({ length: offersCount }, () => (
-                // eslint-disable-next-line react/jsx-key
-                <PlaceCard price={256} />
+              {OFFERS.map((offer) => (
+                <PlaceCard key={offer.id} offer={offer} />
               ))}
             </div>
           </section>
