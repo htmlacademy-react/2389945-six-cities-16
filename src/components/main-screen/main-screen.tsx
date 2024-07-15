@@ -1,4 +1,4 @@
-import PlaceCard from '../../components/place-card/place-card';
+import PlaceCard from '../place-card/place-card';
 import { OFFERS } from '../../mocks/offers';
 
 type MainScreenProps = {
