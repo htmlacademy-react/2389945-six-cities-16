@@ -1,5 +1,5 @@
 export const OffersSettings = {
-  offersCount: 312,
+  offersCount: 5,
 };
 
 export const AppRoute = {

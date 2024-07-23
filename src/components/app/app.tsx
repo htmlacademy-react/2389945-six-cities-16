@@ -7,18 +7,15 @@ import PrivateRoute from '../private-route/private-route';
 import Favorites from '../favorites/favorites';
 import NotFound404 from '../not-found-404/not-found-404';
 import Offer from '../offer/offer';
+import { AppProps } from '../../lib/types';
 
-type AppProps = {
-  offersCount: number;
-};
-
-const App = ({ offersCount }: AppProps): JSX.Element => (
+const App = ({ offersCount, offers }: AppProps): JSX.Element => (
   <HelmetProvider>
     <BrowserRouter>
       <Routes>
         <Route
           path={AppRoute.Root}
-          element={<MainScreen offersCount={offersCount} />}
+          element={<MainScreen offersCount={offersCount} offers={offers} />}
         />
         <Route path={AppRoute.Login} element={<Login />} />
         <Route
