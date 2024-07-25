@@ -1,5 +1,6 @@
 export const OffersSettings = {
-  offersCount: 5,
+  offersCount: 4,
+  starsCount: 5,
 };
 
 export const AppRoute = {
@@ -9,4 +10,9 @@ export const AppRoute = {
   Offer: '/offer/:id',
 };
 
+export enum AuthorizationStatus {
+  Auth = 'AUTH',
+  NoAuth = 'NO_AUTH',
+  Unknown = 'UNKNOWN',
+}
 

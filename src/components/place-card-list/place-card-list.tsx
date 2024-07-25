@@ -1,20 +1,31 @@
-//import { useState } from 'react';
-import { Offer, PlaceCardListProps } from '../../lib/types';
+import { useState } from 'react';
 import PlaceCard from '../place-card/place-card';
+import { AppProps } from '../../lib/types';
 
-function PlaceCardList(props: PlaceCardListProps): JSX.Element {
-  const { offers } = props;
+const PlaceCardList = ({ offersCount, offers }: AppProps): JSX.Element => {
+  // Переменная activeOffer нужна будет потом
+  const [/*activeOffer,*/, setActiveOffer] = useState<string | null>(null);
+
+  const handleCardMouseMove = (id: string) => {
+    setActiveOffer(id);
+  };
+
+  const handleCardMouseLeave = () => {
+    setActiveOffer(null);
+  };
 
   return (
     <div className="cities__places-list places__list tabs__content">
-      {offers.map((offer: Offer) => (
+      {offers.map((offer) => (
         <PlaceCard
-          offer={offer}
           key={offer.id}
-          //onActiveCardChange={setActivePlaceCard}
+          {...offer}
+          onMouseMove={handleCardMouseMove}
+          onMouseLeave={handleCardMouseLeave}
         />
-      ))}
+      )).slice(0, offersCount)}
     </div>
   );
-}
+};
+
 export default PlaceCardList;

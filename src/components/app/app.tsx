@@ -1,36 +1,40 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { HelmetProvider } from 'react-helmet-async';
-import { AppRoute } from '../../const';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
 import MainScreen from '../main-screen/main-screen';
 import Login from '../login/login';
-import PrivateRoute from '../private-route/private-route';
 import Favorites from '../favorites/favorites';
-import NotFound404 from '../not-found-404/not-found-404';
 import Offer from '../offer/offer';
+import NotFound404 from '../not-found-404/not-found-404';
+import PrivateRoute from '../private-route/private-route';
+import { AppRoute, AuthorizationStatus } from '../../const';
 import { AppProps } from '../../lib/types';
 
-const App = ({ offersCount, offers }: AppProps): JSX.Element => (
-  <HelmetProvider>
+const App = (props: AppProps): JSX.Element => {
+  const { offersCount, offers } = props;
+  return (
     <BrowserRouter>
       <Routes>
         <Route
-          path={AppRoute.Root}
+          index
           element={<MainScreen offersCount={offersCount} offers={offers} />}
         />
         <Route path={AppRoute.Login} element={<Login />} />
         <Route
+          path={`${AppRoute.Offer}/:id`}
+          element={<Offer offer={offers[0]} />}
+        />
+        <Route
           path={AppRoute.Favorites}
           element={
-            <PrivateRoute>
-              <Favorites />
+            <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
+              <Favorites offers={offers} />
             </PrivateRoute>
           }
         />
-        <Route path={AppRoute.Offer} element={<Offer />} />
         <Route path="*" element={<NotFound404 />} />
       </Routes>
     </BrowserRouter>
-  </HelmetProvider>
-);
+  );
+};
 
 export default App;

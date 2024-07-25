@@ -1,4 +1,4 @@
-export type Offer = {
+export type TOffer = {
   id: string;
   title: string;
   type: string;
@@ -24,11 +24,23 @@ export type Offer = {
 
 export type AppProps = {
   offersCount: number;
-  offers: Offer[];
+  offers: TOffer[];
 };
 
+export type PlaceCardProps =
+  TOffer & {
+    onMouseMove?: (id: string) => void;
+    onMouseLeave?: () => void;
+    place?: 'cities' | 'favorites';
+  };
+
+
 export type PlaceCardListProps = {
-  offers: Offer[];
+  offers: TOffer[];
 };
+
+export type FavoritesProps = {
+  offers: TOffer[];
+}
 
 
