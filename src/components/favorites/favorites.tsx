@@ -7,13 +7,13 @@ type FavoritesProps = {
 
 const Favorites = (props: FavoritesProps): JSX.Element => {
   const favoriteOffersByCity = props.offers.reduce<{ [key: string]: TOffer[] }>(
-    (acc, curr) => {
-      if (curr.isFavorite) {
-        const city = curr.city.name;
+    (acc, current) => {
+      if (current.isFavorite) {
+        const city = current.city.name;
         if (!(city in acc)) {
           acc[city] = [];
         }
-        acc[city].push(curr);
+        acc[city].push(current);
       }
       return acc;
     },
