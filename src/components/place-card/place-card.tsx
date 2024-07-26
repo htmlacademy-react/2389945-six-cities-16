@@ -6,12 +6,6 @@ type PlaceCardProps = {
   place?: 'cities' | 'favorites';
   onMouseMove?: (id: string) => void;
   onMouseLeave?: () => void;
-  /*
-  TOffer & {
-  onMouseMove?: (id: string) => void;
-  onMouseLeave?: () => void;
-  place?: 'cities' | 'favorites';
-  */
 };
 
 const PlaceCard = (props: PlaceCardProps): JSX.Element => {

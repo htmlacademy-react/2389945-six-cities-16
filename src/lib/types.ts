@@ -1,21 +1,21 @@
+export type TLocation = {
+  latitude: number;
+  longitude: number;
+  zoom: number;
+};
+
+export type TCity = {
+  name: string;
+  location: TLocation;
+};
+
 export type TOffer = {
   id: string;
   title: string;
   type: string;
   price: number;
-  city: {
-    name: string;
-    location: {
-      latitude: number;
-      longitude: number;
-      zoom: number;
-    };
-  };
-  location: {
-    latitude: number;
-    longitude: number;
-    zoom: number;
-  };
+  city: TCity;
+  location: TLocation;
   isFavorite: boolean;
   isPremium: boolean;
   rating: number;

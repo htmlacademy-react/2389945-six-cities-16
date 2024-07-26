@@ -18,7 +18,7 @@ const OFFERS = [
       'longitude': 2.342499,
       'zoom': 16
     },
-    'isFavorite': false,
+    'isFavorite': true,
     'isPremium': false,
     'rating': 4.8
   },
@@ -1398,7 +1398,7 @@ const OFFERS = [
       'longitude': 4.911976,
       'zoom': 16
     },
-    'isFavorite': false,
+    'isFavorite': true,
     'isPremium': true,
     'rating': 2.4
   },

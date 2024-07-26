@@ -1,20 +1,20 @@
 import PlaceCard from '../place-card/place-card';
-import { AppProps, TOffer } from '../../lib/types';
+import { TOffer } from '../../lib/types';
 
+type FavoritesProps = {
+  offers: TOffer[];
+};
 
-const Favorites = ({ offers }: AppProps): JSX.Element => {
-  const groupedOffersByCity = offers.reduce<{ [key: string]: TOffer[] }>(
+const Favorites = (props: FavoritesProps): JSX.Element => {
+  const favoriteOffersByCity = props.offers.reduce<{ [key: string]: TOffer[] }>(
     (acc, curr) => {
       if (curr.isFavorite) {
         const city = curr.city.name;
-
         if (!(city in acc)) {
           acc[city] = [];
         }
-
         acc[city].push(curr);
       }
-
       return acc;
     },
     {}
@@ -26,7 +26,7 @@ const Favorites = ({ offers }: AppProps): JSX.Element => {
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <a className="header__logo-link" href="main.html">
+              <a className="header__logo-link" href="#">
                 <img
                   className="header__logo"
                   src="img/logo.svg"
@@ -41,7 +41,7 @@ const Favorites = ({ offers }: AppProps): JSX.Element => {
                 <li className="header__nav-item user">
                   <a
                     className="header__nav-link header__nav-link--profile"
-                    href="#"
+                    href="favorites"
                   >
                     <div className="header__avatar-wrapper user__avatar-wrapper"></div>
                     <span className="header__user-name user__name">
@@ -65,28 +65,26 @@ const Favorites = ({ offers }: AppProps): JSX.Element => {
           <section className="favorites">
             <h1 className="favorites__title">Saved listing</h1>
             <ul className="favorites__list">
-              {Object.entries(groupedOffersByCity).map(
-                ([city, groupedOffers]) => (
-                  <li className="favorites__locations-items" key={city}>
-                    <div className="favorites__locations locations locations--current">
-                      <div className="locations__item">
-                        <a className="locations__item-link" href="#">
-                          <span>{city}</span>
-                        </a>
-                      </div>
+              {Object.keys(favoriteOffersByCity).map((city) => (
+                <li className="favorites__locations-items" key={`fav-${city}`}>
+                  <div className="favorites__locations locations locations--current">
+                    <div className="locations__item">
+                      <a className="locations__item-link" href="#">
+                        <span>{city}</span>
+                      </a>
                     </div>
-                    <div className="favorites__places">
-                      {groupedOffers.map((offer) => (
-                        <PlaceCard
-                          key={offer.id}
-                          {...{ offer }}
-                          place="favorites"
-                        />
-                      ))}
-                    </div>
-                  </li>
-                )
-              )}
+                  </div>
+                  <div className="favorites__places">
+                    {favoriteOffersByCity[city].map((offer) => (
+                      <PlaceCard
+                        key={offer.id}
+                        offer={offer}
+                        place="favorites"
+                      />
+                    ))}
+                  </div>
+                </li>
+              ))}
             </ul>
           </section>
         </div>
