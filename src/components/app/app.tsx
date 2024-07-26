@@ -7,7 +7,7 @@ import Offer from '../offer/offer';
 import NotFound404 from '../not-found-404/not-found-404';
 import PrivateRoute from '../private-route/private-route';
 import { AppRoute, AuthorizationStatus } from '../../const';
-import { AppProps } from '../../lib/types';
+import type { AppProps } from '../../lib/types';
 
 const App = (props: AppProps): JSX.Element => {
   const { offersCount, offers } = props;
@@ -27,7 +27,7 @@ const App = (props: AppProps): JSX.Element => {
           path={AppRoute.Favorites}
           element={
             <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
-              <Favorites offers={offers} />
+              <Favorites offersCount={offersCount} offers={offers} />
             </PrivateRoute>
           }
         />

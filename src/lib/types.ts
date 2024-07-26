@@ -23,24 +23,8 @@ export type TOffer = {
 };
 
 export type AppProps = {
-  offersCount: number;
-  offers: TOffer[];
-};
-
-export type PlaceCardProps =
-  TOffer & {
-    onMouseMove?: (id: string) => void;
-    onMouseLeave?: () => void;
-    place?: 'cities' | 'favorites';
+    offersCount: number;
+    offers: TOffer[];
   };
-
-
-export type PlaceCardListProps = {
-  offers: TOffer[];
-};
-
-export type FavoritesProps = {
-  offers: TOffer[];
-}
 
 

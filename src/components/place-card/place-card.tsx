@@ -1,21 +1,29 @@
-import { PlaceCardProps } from '../../lib/types';
 import { AppRoute } from '../../const';
+import { TOffer } from '../../lib/types';
 
-const PlaceCard = ({
-  id,
-  price,
-  rating,
-  title,
-  isPremium,
-  isFavorite,
-  previewImage,
-  type,
-  place = 'cities',
-  onMouseMove = () => void 0,
-  onMouseLeave = () => void 0,
-}: PlaceCardProps): JSX.Element => {
+type PlaceCardProps = {
+  offer: TOffer;
+  place?: 'cities' | 'favorites';
+  onMouseMove?: (id: string) => void;
+  onMouseLeave?: () => void;
+  /*
+  TOffer & {
+  onMouseMove?: (id: string) => void;
+  onMouseLeave?: () => void;
+  place?: 'cities' | 'favorites';
+  */
+};
+
+const PlaceCard = (props: PlaceCardProps): JSX.Element => {
+  const {
+    offer,
+    onMouseMove = () => void 0,
+    onMouseLeave = () => void 0,
+    place = 'cities',
+  } = props;
+
   const handleMouseMove = () => {
-    onMouseMove(id);
+    onMouseMove(offer.id);
   };
 
   return (
@@ -24,7 +32,7 @@ const PlaceCard = ({
       onMouseMove={handleMouseMove}
       onMouseLeave={onMouseLeave}
     >
-      {isPremium && (
+      {offer.isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>
         </div>
@@ -33,7 +41,7 @@ const PlaceCard = ({
         <a href="#">
           <img
             className="place-card__image"
-            src={previewImage}
+            src={offer.previewImage}
             width="260"
             height="200"
             alt="Place image"
@@ -43,12 +51,12 @@ const PlaceCard = ({
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
-            <b className="place-card__price-value">&euro;{price}</b>
+            <b className="place-card__price-value">&euro;{offer.price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
           <button
             className={`place-card__bookmark-button button${
-              isFavorite ? ' place-card__bookmark-button--active' : ''
+              offer.isFavorite ? ' place-card__bookmark-button--active' : ''
             }`}
             type="button"
           >
@@ -62,7 +70,7 @@ const PlaceCard = ({
           <div className="place-card__stars rating__stars">
             <span
               style={{
-                width: `${Math.round(rating) * 20}%`,
+                width: `${Math.round(offer.rating) * 20}%`,
               }}
             >
             </span>
@@ -70,9 +78,9 @@ const PlaceCard = ({
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href={`${AppRoute.Offer}/${id}`}>{title}</a>
+          <a href={`${AppRoute.Offer}/${offer.id}`}>{offer.title}</a>
         </h2>
-        <p className="place-card__type">{type}</p>
+        <p className="place-card__type">{offer.type}</p>
       </div>
     </article>
   );

@@ -1,5 +1,4 @@
 import { AppProps } from '../../lib/types';
-
 import PlaceCardList from '../place-card-list/place-card-list';
 
 const MainScreen = ({ offersCount, offers }: AppProps): JSX.Element => (

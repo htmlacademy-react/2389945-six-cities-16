@@ -1,7 +1,8 @@
 import PlaceCard from '../place-card/place-card';
-import { FavoritesProps, TOffer } from '../../lib/types';
+import { AppProps, TOffer } from '../../lib/types';
 
-const Favorites = ({ offers }: FavoritesProps): JSX.Element => {
+
+const Favorites = ({ offers }: AppProps): JSX.Element => {
   const groupedOffersByCity = offers.reduce<{ [key: string]: TOffer[] }>(
     (acc, curr) => {
       if (curr.isFavorite) {
@@ -78,7 +79,7 @@ const Favorites = ({ offers }: FavoritesProps): JSX.Element => {
                       {groupedOffers.map((offer) => (
                         <PlaceCard
                           key={offer.id}
-                          {...offer}
+                          {...{ offer }}
                           place="favorites"
                         />
                       ))}

@@ -1,5 +1,5 @@
 import ReviewForm from '../review-form/review-form';
-import type { TOffer } from '../../lib/types';
+import { TOffer } from '../../lib/types';
 
 type OfferProps = {
   offer: TOffer;
