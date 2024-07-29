@@ -11,8 +11,8 @@ type PlaceCardProps = {
 const PlaceCard = (props: PlaceCardProps): JSX.Element => {
   const {
     offer,
-    onMouseMove = () => void 0,
-    onMouseLeave = () => void 0,
+    onMouseMove = () => void {},
+    onMouseLeave = () => void {},
     place = 'cities',
   } = props;
 
