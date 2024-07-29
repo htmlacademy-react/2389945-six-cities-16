@@ -1,8 +1,8 @@
 import ReviewForm from '../review-form/review-form';
-import { TOffer } from '../../lib/types';
+import { OfferType } from '../../lib/types';
 
 type OfferProps = {
-  offer: TOffer;
+  offer: OfferType;
 };
 
 const Offer = (props: OfferProps): JSX.Element => {

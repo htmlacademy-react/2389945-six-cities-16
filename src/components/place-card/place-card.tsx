@@ -1,8 +1,8 @@
 import { AppRoute } from '../../const';
-import { TOffer } from '../../lib/types';
+import { OfferType } from '../../lib/types';
 
 type PlaceCardProps = {
-  offer: TOffer;
+  offer: OfferType;
   place?: 'cities' | 'favorites';
   onMouseMove?: (id: string) => void;
   onMouseLeave?: () => void;

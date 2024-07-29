@@ -1,24 +1,23 @@
 import PlaceCard from '../place-card/place-card';
-import { TOffer } from '../../lib/types';
+import { OfferType } from '../../lib/types';
 
 type FavoritesProps = {
-  offers: TOffer[];
+  offers: OfferType[];
 };
 
 const Favorites = (props: FavoritesProps): JSX.Element => {
-  const favoriteOffersByCity = props.offers.reduce<{ [key: string]: TOffer[] }>(
-    (acc, current) => {
-      if (current.isFavorite) {
-        const city = current.city.name;
-        if (!(city in acc)) {
-          acc[city] = [];
-        }
-        acc[city].push(current);
+  const favoriteOffersByCity = props.offers.reduce<{
+    [key: string]: OfferType[];
+  }>((acc, current) => {
+    if (current.isFavorite) {
+      const city = current.city.name;
+      if (!(city in acc)) {
+        acc[city] = [];
       }
-      return acc;
-    },
-    {}
-  );
+      acc[city].push(current);
+    }
+    return acc;
+  }, {});
 
   return (
     <div className="page">

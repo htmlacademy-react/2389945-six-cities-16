@@ -1,21 +1,21 @@
-export type TLocation = {
+export type LocationType = {
   latitude: number;
   longitude: number;
   zoom: number;
 };
 
-export type TCity = {
+export type CityType = {
   name: string;
-  location: TLocation;
+  location: LocationType;
 };
 
-export type TOffer = {
+export type OfferType = {
   id: string;
   title: string;
   type: string;
   price: number;
-  city: TCity;
-  location: TLocation;
+  city: CityType;
+  location: LocationType;
   isFavorite: boolean;
   isPremium: boolean;
   rating: number;
@@ -24,7 +24,7 @@ export type TOffer = {
 
 export type AppProps = {
     offersCount: number;
-    offers: TOffer[];
+    offers: OfferType[];
   };
 
 
