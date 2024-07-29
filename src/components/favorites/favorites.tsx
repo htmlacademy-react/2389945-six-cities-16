@@ -2,24 +2,15 @@ import { AppRoute } from '../../const';
 import { Link } from 'react-router-dom';
 import PlaceCard from '../place-card/place-card';
 import { OfferType } from '../../lib/types';
+import { getFavoriteOffers, getOffersByCity } from './utils';
 
 type FavoritesProps = {
   offers: OfferType[];
 };
 
 const Favorites = (props: FavoritesProps): JSX.Element => {
-  const favoriteOffersByCity = props.offers.reduce<{
-    [key: string]: OfferType[];
-  }>((acc, current) => {
-    if (current.isFavorite) {
-      const city = current.city.name;
-      if (!(city in acc)) {
-        acc[city] = [];
-      }
-      acc[city].push(current);
-    }
-    return acc;
-  }, {});
+  const favoriteOffers: OfferType[] = getFavoriteOffers(props.offers);
+  const favoriteOffersByCity = getOffersByCity(favoriteOffers);
 
   return (
     <div className="page">
