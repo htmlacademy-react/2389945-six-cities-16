@@ -1,11 +1,8 @@
-import PlaceCard from '../place-card/place-card';
-import { OFFERS } from '../../mocks/offers';
+import { Link } from 'react-router-dom';
+import { AppProps } from '../../lib/types';
+import PlaceCardList from '../place-card-list/place-card-list';
 
-type MainScreenProps = {
-  offersCount: number;
-};
-
-const MainScreen = ({ offersCount }: MainScreenProps): JSX.Element => (
+const MainScreen = ({ offersCount, offers }: AppProps): JSX.Element => (
   <div className="page page--gray page--main">
     <header className="header">
       <div className="container">
@@ -24,16 +21,16 @@ const MainScreen = ({ offersCount }: MainScreenProps): JSX.Element => (
           <nav className="header__nav">
             <ul className="header__nav-list">
               <li className="header__nav-item user">
-                <a
+                <Link
                   className="header__nav-link header__nav-link--profile"
-                  href="#"
+                  to="favorites"
                 >
                   <div className="header__avatar-wrapper user__avatar-wrapper"></div>
                   <span className="header__user-name user__name">
                     Oliver.conner@gmail.com
                   </span>
                   <span className="header__favorite-count">3</span>
-                </a>
+                </Link>
               </li>
               <li className="header__nav-item">
                 <a className="header__nav-link" href="#">
@@ -89,7 +86,7 @@ const MainScreen = ({ offersCount }: MainScreenProps): JSX.Element => (
           <section className="cities__places places">
             <h2 className="visually-hidden">Places</h2>
             <b className="places__found">
-              {offersCount} places to stay in Amsterdam
+              {offers.length} places to stay in Amsterdam
             </b>
             <form className="places__sorting" action="#" method="get">
               <span className="places__sorting-caption">Sort by</span>
@@ -117,11 +114,7 @@ const MainScreen = ({ offersCount }: MainScreenProps): JSX.Element => (
                 </li>
               </ul>
             </form>
-            <div className="cities__places-list places__list tabs__content">
-              {OFFERS.map((offer) => (
-                <PlaceCard key={offer.id} offer={offer} />
-              ))}
-            </div>
+            <PlaceCardList offersCount={offersCount} offers={offers} />
           </section>
           <div className="cities__right-section">
             <section className="cities__map map"></section>
