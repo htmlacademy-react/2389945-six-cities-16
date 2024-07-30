@@ -8,12 +8,11 @@ import { CityList, CityInfo } from '../../const';
 import { Cities } from '../cities/cities';
 import PlaceCardList from '../place-card-list/place-card-list';
 
-
 const MainScreen = ({ offersCount, offers }: AppProps): JSX.Element => {
   const [currentCity, setCurrentCity] = useState<CityType | null>(null);
   const [currentOffer, setCurrentOffer] = useState<OfferType | null>(null);
 
-  const cityClickHandler = (cityName: string = 'Amsterdam'): void => {
+  const cityClickHandler = (cityName: string): void => {
     CityInfo.some((city) => {
       if (city.name === cityName) {
         setCurrentCity(city);
