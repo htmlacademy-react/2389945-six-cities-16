@@ -7,10 +7,12 @@ type PlaceCardListProps = AppProps & {
   onActiveOfferChange: React.Dispatch<React.SetStateAction<OfferType | null>>;
 };
 
+//type PlaceCardListProps = AppProps;
+
 const PlaceCardList = (props: PlaceCardListProps): JSX.Element => {
-  const { offers, onActiveOfferChange } = props;
+  const { offers } = props;
   const [activeOffer, setActiveOffer] = useState<OfferType | null>(null);
-  onActiveOfferChange(activeOffer);
+  //onActiveOfferChange(activeOffer);
 
   const handleCardMouseMove = () => {
     setActiveOffer(activeOffer);
