@@ -10,17 +10,18 @@ type CitiesProps = {
 
 export const Cities = (props: CitiesProps): JSX.Element => {
   const { cities, currentCity, onCityClick } = props;
+  const handleCityClick = (evt: React.MouseEvent<HTMLUListElement>) => {
+    evt.preventDefault();
+    const targetElement = evt.target as HTMLFormElement;
+    if (targetElement.children.length === 0) {
+      onCityClick(targetElement.innerText);
+    }
+  };
 
   return (
     <ul
       className="locations__list tabs__list"
-      onClick={(evt) => {
-        evt.preventDefault();
-        const targetElement = evt.target as HTMLFormElement;
-        if (targetElement.children.length === 0) {
-          onCityClick(targetElement.innerText);
-        }
-      }}
+      onClick={handleCityClick}
     >
       {Object.values(cities).map((city, index) => {
         const classes = [
