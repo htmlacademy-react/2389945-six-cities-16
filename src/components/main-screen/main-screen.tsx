@@ -9,15 +9,14 @@ import { Cities } from '../cities/cities';
 import PlaceCardList from '../place-card-list/place-card-list';
 
 const MainScreen = ({ offersCount, offers }: AppProps): JSX.Element => {
-  const [currentCity, setCurrentCity] = useState<CityType | null>(CityInfo[0]);
+  const [currentCity, setCurrentCity] = useState<CityType>(CityInfo[0]);
   const [currentOffer, setCurrentOffer] = useState<OfferType | null>(null);
 
-  const cityClickHandler = (cityName: string): void => {
-    CityInfo.some((city) => {
-      if (city.name === cityName) {
-        setCurrentCity(city);
-      }
-    });
+  const handleCityClick = (cityName: string): void => {
+    const selectedCity = CityInfo.find((city) => city.name === cityName);
+    if (selectedCity) {
+      setCurrentCity(selectedCity);
+    }
   };
 
   const cityOffers = offers
@@ -72,7 +71,7 @@ const MainScreen = ({ offersCount, offers }: AppProps): JSX.Element => {
             <Cities
               cities={CityList}
               currentCity={currentCity}
-              onCityClick={cityClickHandler}
+              onCityClick={handleCityClick}
             />
           </section>
         </div>

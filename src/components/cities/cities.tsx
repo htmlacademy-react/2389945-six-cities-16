@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { CityList } from '../../const';
 import { CityType } from '../../lib/types';
+import classNames from 'classnames';
 
 type CitiesProps = {
   cities: typeof CityList;
@@ -24,11 +25,11 @@ export const Cities = (props: CitiesProps): JSX.Element => {
       onClick={handleCityClick}
     >
       {Object.values(cities).map((city, index) => {
-        const classes = [
-          'locations__item-link',
-          'tabs__item',
-          city.toString() === currentCity?.name ? 'tabs__item--active' : '',
-        ].join(' ');
+        const classes = classNames({
+          'locations__item-link': true,
+          'tabs__item': true,
+          'tabs__item--active': city.toString() === currentCity?.name
+        });
         const keyValue = `${index}-${city}`;
 
         return (
