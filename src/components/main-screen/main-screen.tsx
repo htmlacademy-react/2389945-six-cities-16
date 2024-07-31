@@ -9,7 +9,7 @@ import { Cities } from '../cities/cities';
 import PlaceCardList from '../place-card-list/place-card-list';
 
 const MainScreen = ({ offersCount, offers }: AppProps): JSX.Element => {
-  const [currentCity, setCurrentCity] = useState<CityType | null>(null);
+  const [currentCity, setCurrentCity] = useState<CityType | null>(CityInfo[0]);
   const [currentOffer, setCurrentOffer] = useState<OfferType | null>(null);
 
   const cityClickHandler = (cityName: string): void => {

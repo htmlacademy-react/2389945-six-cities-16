@@ -24,14 +24,7 @@ export enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
-export const CityInfo: [
-  CityType,
-  CityType,
-  CityType,
-  CityType,
-  CityType,
-  CityType
-] = [
+export const CityInfo: CityType[] = [
   {
     name: 'Paris',
     location: {
@@ -82,11 +75,12 @@ export const CityInfo: [
   },
 ];
 
-export enum CityList {
-  Paris = 'Paris',
-  Cologne = 'Cologne',
-  Brussels = 'Brussels',
-  Amsterdam = 'Amsterdam',
-  Hamburg = 'Hamburg',
-  Dusseldorf = 'Dusseldorf',
-}
+export const CityList = [
+  'Paris',
+  'Cologne',
+  'Brussels',
+  'Amsterdam',
+  'Hamburg',
+  'Dusseldorf',
+];
+
