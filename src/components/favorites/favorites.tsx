@@ -27,11 +27,7 @@ const Favorites = (props: FavoritesProps): JSX.Element => {
                 </div>
                 <div className="favorites__places">
                   {favoriteOffersByCity[city].map((offer) => (
-                    <PlaceCard
-                      key={offer.id}
-                      offer={offer}
-                      place="favorites"
-                    />
+                    <PlaceCard key={offer.id} offer={offer} place="favorites" />
                   ))}
                 </div>
               </li>
