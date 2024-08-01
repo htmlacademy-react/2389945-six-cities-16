@@ -17,7 +17,7 @@ const App = (props: AppProps): JSX.Element => {
       <Routes>
         <Route
           path={AppRoute.Root}
-          element={<Header authorizationStatus={AuthorizationStatus.NoAuth} />}
+          element={<Header authorizationStatus={AuthorizationStatus.Auth} />}
         >
           <Route
             index
@@ -32,7 +32,10 @@ const App = (props: AppProps): JSX.Element => {
               </PrivateRoute>
             }
           />
-          <Route path={AppRoute.Offer} element={<Offer offer={OFFER_INFO} />} />
+          <Route
+            path={`${AppRoute.Offer}/:id`}
+            element={<Offer offer={OFFER_INFO} />}
+          />
         </Route>
         <Route path="*" element={<NotFound404 />} />
       </Routes>

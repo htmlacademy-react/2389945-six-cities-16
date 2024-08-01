@@ -2,7 +2,7 @@ import { OfferInfoType } from '../lib/types';
 
 export const OFFER_INFO: OfferInfoType =
 {
-  'id': '6af6f711-c28d-4121-82cd-e0b462a27f00',
+  'id': '6779022c-ac26-4554-ac2e-227dd6349161',
   'title': 'Beautiful & luxurious studio at great location',
   'type': 'apartment',
   'price': 120,
