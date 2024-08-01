@@ -1,10 +1,10 @@
 import { AppRoute } from '../../const';
 import { Link } from 'react-router-dom';
 import ReviewForm from '../review-form/review-form';
-import { OfferType } from '../../lib/types';
+import { OfferInfoType } from '../../lib/types';
 
 type OfferProps = {
-  offer: OfferType;
+  offer: OfferInfoType;
 };
 
 const Offer = (props: OfferProps): JSX.Element => {
