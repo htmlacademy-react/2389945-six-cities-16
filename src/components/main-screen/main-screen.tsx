@@ -69,8 +69,8 @@ const MainScreen = ({ offersCount, offers }: AppProps): JSX.Element => {
             </form>
             <PlaceCardList
               offersCount={offersCount}
-              offers={offers}
-              onActiveOfferChange={setCurrentOffer}
+              offers={cityOffers}
+              onSelectedOfferChange={setCurrentOffer}
             />
           </section>
           <div className="cities__right-section">
