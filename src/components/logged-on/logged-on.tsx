@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { HeaderProps } from '../../lib/types';
 
-function LoggedOn({ authorizationStatus }: HeaderProps): JSX.Element {
+export const LoggedOn = ({ authorizationStatus }: HeaderProps): JSX.Element => {
   if (authorizationStatus === AuthorizationStatus.Auth) {
     return (
       <nav className="header__nav">
@@ -43,6 +43,5 @@ function LoggedOn({ authorizationStatus }: HeaderProps): JSX.Element {
       </ul>
     </nav>
   );
-}
+};
 
-export default LoggedOn;

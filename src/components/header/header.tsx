@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom';
-import LoggedOn from '../logged-on/logged-on';
+import { LoggedOn } from '../logged-on/logged-on';
 import { Outlet, useLocation } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { HeaderProps } from '../../lib/types';
 
-function Header({ authorizationStatus }: HeaderProps): JSX.Element {
+export const Header = ({ authorizationStatus }: HeaderProps): JSX.Element => {
   const { pathname } = useLocation();
   const isLoggedOn = pathname === AppRoute.Login;
   return (
@@ -35,6 +35,6 @@ function Header({ authorizationStatus }: HeaderProps): JSX.Element {
       <Outlet />
     </div>
   );
-}
+};
 
-export default Header;
+

@@ -1,9 +1,9 @@
 import ReviewForm from '../review-form/review-form';
-import Map from '../map/map';
+import { Map } from '../map/map';
 import { OfferInfoType } from '../../lib/types';
 import { OFFERS } from '../../mocks/offers';
 import { REVIEWS } from '../../mocks/reviews';
-import NearPlaces from '../near-places/near-places';
+import { NearPlaces } from '../near-places/near-places';
 import { PlaceRating } from '../place-rating/place-rating';
 import ReviewList from '../review-list/review-list';
 

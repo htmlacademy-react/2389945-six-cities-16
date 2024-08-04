@@ -5,7 +5,7 @@ type NearPlaceProps = {
   offers: OfferType[];
 };
 
-function NearPlaces(props: NearPlaceProps): JSX.Element {
+export const NearPlaces = (props: NearPlaceProps): JSX.Element => {
   const { offers } = props;
 
   return (
@@ -18,6 +18,4 @@ function NearPlaces(props: NearPlaceProps): JSX.Element {
       </div>
     </section>
   );
-}
-
-export default NearPlaces;
+};
