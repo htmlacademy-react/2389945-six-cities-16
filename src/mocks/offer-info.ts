@@ -5,7 +5,7 @@ export const OFFER_INFO: OfferInfoType =
   'id': '6779022c-ac26-4554-ac2e-227dd6349161',
   'title': 'Beautiful & luxurious studio at great location',
   'type': 'apartment',
-  'price': 120,
+  'price': 150,
   'city': {
     'name': 'Amsterdam',
     'location': {
@@ -25,15 +25,17 @@ export const OFFER_INFO: OfferInfoType =
   'description': 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
   'bedrooms': 3,
   'goods': [
-    'Heating'
+    'Heating',
   ],
   'host': {
     'name': 'Oliver Conner',
-    'avatarUrl': 'https://url-to-image/image.png',
+    'avatarUrl': '../../public/img/avatar-max.jpg',
     'isPro': false
   },
   'images': [
-    'https://url-to-image/image.png'
+    '../../public/img/apartment-01.jpg',
+    '../../public/img/apartment-02.jpg',
+    '../../public/img/apartment-03.jpg'
   ],
   'maxAdults': 4
 };

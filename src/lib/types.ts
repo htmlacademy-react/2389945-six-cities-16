@@ -50,9 +50,9 @@ export type OfferInfoType = {
   rating: number;
   description: string;
   bedrooms: number;
-  goods: [string];
+  goods: string[];
   host: UserType;
-  images: [string];
+  images: string[];
   maxAdults: number;
 };
 
