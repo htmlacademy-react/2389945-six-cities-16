@@ -8,7 +8,7 @@ import { DEFAULT_MARKER_URL, CURRENT_MARKER_URL } from '../../const';
 type MapProps = {
   city: CityType | null;
   offers: OfferType[];
-  currentOffer: OfferType | null;
+  currentOffer?: OfferType | null;
 };
 
 type IconOptionsType = {

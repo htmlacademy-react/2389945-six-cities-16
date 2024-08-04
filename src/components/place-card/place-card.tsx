@@ -3,26 +3,22 @@ import { OfferType } from '../../lib/types';
 
 type PlaceCardProps = {
   offer: OfferType;
-  place?: 'cities' | 'favorites';
-  onSelectedOfferChange?: React.Dispatch<
-    React.SetStateAction<OfferType | null>
-  >;
+  onMouseMove?: (id: string) => void;
+  onMouseLeave?: () => void;
+  place?: 'cities' | 'favorites' | 'near-places';
 };
 
 const PlaceCard = (props: PlaceCardProps): JSX.Element => {
   const {
     offer,
     place = 'cities',
-    //onMouseMove = () => void {},
-    //onMouseLeave = () => void {},
-    onSelectedOfferChange,
+    onMouseMove = () => void {},
+    onMouseLeave = () => void {},
   } = props;
 
-  const handleMouseMove = () => () =>
-    onSelectedOfferChange(offer);
+  const handleMouseMove = () => onMouseMove(offer.id);
 
-  const handleMouseLeave = () => () =>
-    onSelectedOfferChange(null);
+  const handleMouseLeave = () => onMouseLeave;
 
   return (
     <article

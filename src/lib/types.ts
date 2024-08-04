@@ -24,6 +24,14 @@ export type OfferType = {
   previewImage: string;
 };
 
+export type ReviewType = {
+  id: string;
+  date: string;
+  user: UserType;
+  comment: string;
+  rating: number;
+};
+
 export type UserType = {
   name: string;
   avatarUrl: string;
@@ -57,4 +65,8 @@ export type HeaderProps = {
   authorizationStatus: AuthorizationStatus;
 };
 
+export type RateType = {
+  name: string;
+  mark: number;
+};
 
