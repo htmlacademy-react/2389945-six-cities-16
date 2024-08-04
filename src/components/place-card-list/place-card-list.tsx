@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import PlaceCard from '../place-card/place-card';
+import { PlaceCard } from '../place-card/place-card';
 import { AppProps } from '../../lib/types';
 import { OfferType } from '../../lib/types';
 

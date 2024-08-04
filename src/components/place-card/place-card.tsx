@@ -8,7 +8,7 @@ type PlaceCardProps = {
   place?: 'cities' | 'favorites' | 'near-places';
 };
 
-const PlaceCard = (props: PlaceCardProps): JSX.Element => {
+export const PlaceCard = (props: PlaceCardProps): JSX.Element => {
   const {
     offer,
     place = 'cities',
@@ -80,4 +80,3 @@ const PlaceCard = (props: PlaceCardProps): JSX.Element => {
   );
 };
 
-export default PlaceCard;

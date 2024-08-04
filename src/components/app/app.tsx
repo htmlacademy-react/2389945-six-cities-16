@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Header from '../header/header';
+import { Header } from '../header/header';
 import MainScreen from '../main-screen/main-screen';
 import Login from '../login/login';
 import Favorites from '../favorites/favorites';

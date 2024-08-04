@@ -1,4 +1,4 @@
-import Map from '../map/map';
+import { Map } from '../map/map';
 import { useState } from 'react';
 import { AppProps } from '../../lib/types';
 import { OfferType } from '../../lib/types';

@@ -1,5 +1,5 @@
 import { OfferType } from '../../lib/types';
-import PlaceCard from '../place-card/place-card';
+import { PlaceCard } from '../place-card/place-card';
 
 type NearPlaceProps = {
   offers: OfferType[];

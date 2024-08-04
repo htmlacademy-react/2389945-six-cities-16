@@ -1,4 +1,4 @@
-import PlaceCard from '../place-card/place-card';
+import { PlaceCard } from '../place-card/place-card';
 import { OfferType } from '../../lib/types';
 import { getFavoriteOffers, getOffersByCity } from './utils';
 
