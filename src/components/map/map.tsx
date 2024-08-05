@@ -9,6 +9,7 @@ type MapProps = {
   city: CityType | null;
   offers: OfferType[];
   currentOffer?: OfferType | null;
+  place?: 'cities' | 'offer';
 };
 
 type IconOptionsType = {
@@ -31,7 +32,7 @@ const currentCustomIcon = new Icon({
 });
 
 export const Map = (props: MapProps): JSX.Element => {
-  const { city, offers, currentOffer } = props;
+  const { city, offers, currentOffer, place = 'cities' } = props;
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
@@ -68,5 +69,5 @@ export const Map = (props: MapProps): JSX.Element => {
     }
   }, [map, offers, currentOffer]);
 
-  return <section className="cities__map map" ref={mapRef}></section>;
+  return <section className={`${place}__map map`} ref={mapRef}></section>;
 };

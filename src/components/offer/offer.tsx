@@ -119,7 +119,7 @@ const Offer = (props: OfferProps): JSX.Element => {
           </section>
         </div>
       </div>
-      <Map offers={nearPlaceOffers} city={offer.city} />
+      <Map offers={nearPlaceOffers} city={offer.city} place="offer" />
       <div className="container">
         <NearPlaces offers={nearPlaceOffers} />
       </div>
