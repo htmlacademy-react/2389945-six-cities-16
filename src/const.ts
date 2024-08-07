@@ -1,4 +1,4 @@
-import { CityType } from './lib/types';
+import { CityType, RateType } from './lib/types';
 
 export const DEFAULT_MARKER_URL =
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg';
@@ -9,6 +9,7 @@ export const CURRENT_MARKER_URL =
 export const OffersSettings = {
   offersCount: 5,
   starsCount: 5,
+  reviewText: { minLength: 50, maxLength: 300 },
 };
 
 export const AppRoute = {
@@ -84,3 +85,25 @@ export const CityList = [
   'Dusseldorf',
 ];
 
+export const RateSettings: RateType[] = [
+  {
+    name: 'perfect',
+    mark: 5,
+  },
+  {
+    name: 'good',
+    mark: 4,
+  },
+  {
+    name: 'not bad',
+    mark: 3,
+  },
+  {
+    name: 'badly',
+    mark: 2,
+  },
+  {
+    name: 'terribly',
+    mark: 1,
+  },
+];

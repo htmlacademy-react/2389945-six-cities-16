@@ -2,13 +2,14 @@ import { Icon, layerGroup, Marker } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { useEffect, useRef } from 'react';
 import { CityType, OfferType } from '../../lib/types';
-import useMap from '../../hooks/use-map';
+import { useMap } from '../../hooks/use-map';
 import { DEFAULT_MARKER_URL, CURRENT_MARKER_URL } from '../../const';
 
 type MapProps = {
   city: CityType | null;
   offers: OfferType[];
-  currentOffer: OfferType | null;
+  currentOffer?: OfferType | null;
+  place?: 'cities' | 'offer';
 };
 
 type IconOptionsType = {
@@ -30,8 +31,8 @@ const currentCustomIcon = new Icon({
   ...defaultIconOptions,
 });
 
-function Map(props: MapProps): JSX.Element {
-  const { city, offers, currentOffer } = props;
+export const Map = (props: MapProps): JSX.Element => {
+  const { city, offers, currentOffer, place = 'cities' } = props;
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
@@ -68,6 +69,5 @@ function Map(props: MapProps): JSX.Element {
     }
   }, [map, offers, currentOffer]);
 
-  return <section className="cities__map map" ref={mapRef}></section>;
-}
-export default Map;
+  return <section className={`${place}__map map`} ref={mapRef}></section>;
+};

@@ -3,28 +3,28 @@ import { OfferType } from '../../lib/types';
 
 type PlaceCardProps = {
   offer: OfferType;
-  place?: 'cities' | 'favorites';
   onMouseMove?: (id: string) => void;
   onMouseLeave?: () => void;
+  place?: 'cities' | 'favorites' | 'near-places';
 };
 
-const PlaceCard = (props: PlaceCardProps): JSX.Element => {
+export const PlaceCard = (props: PlaceCardProps): JSX.Element => {
   const {
     offer,
+    place = 'cities',
     onMouseMove = () => void {},
     onMouseLeave = () => void {},
-    place = 'cities',
   } = props;
 
-  const handleMouseMove = () => {
-    onMouseMove(offer.id);
-  };
+  const handleMouseMove = () => onMouseMove(offer.id);
+
+  const handleMouseLeave = () => onMouseLeave();
 
   return (
     <article
       className={`${place}__card place-card`}
       onMouseMove={handleMouseMove}
-      onMouseLeave={onMouseLeave}
+      onMouseLeave={handleMouseLeave}
     >
       {offer.isPremium && (
         <div className="place-card__mark">
@@ -80,4 +80,3 @@ const PlaceCard = (props: PlaceCardProps): JSX.Element => {
   );
 };
 
-export default PlaceCard;

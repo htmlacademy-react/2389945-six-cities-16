@@ -1,26 +1,13 @@
-import { useState } from 'react';
-import PlaceCard from '../place-card/place-card';
+import { PlaceCard } from '../place-card/place-card';
 import { AppProps } from '../../lib/types';
 import { OfferType } from '../../lib/types';
 
 type PlaceCardListProps = AppProps & {
-  onActiveOfferChange: React.Dispatch<React.SetStateAction<OfferType | null>>;
+  onSelectedOfferChange: React.Dispatch<React.SetStateAction<OfferType | null>>;
 };
 
-//type PlaceCardListProps = AppProps;
-
 const PlaceCardList = (props: PlaceCardListProps): JSX.Element => {
-  const { offers } = props;
-  const [activeOffer, setActiveOffer] = useState<OfferType | null>(null);
-  //onActiveOfferChange(activeOffer);
-
-  const handleCardMouseMove = () => {
-    setActiveOffer(activeOffer);
-  };
-
-  const handleCardMouseLeave = () => {
-    setActiveOffer(null);
-  };
+  const { offers, onSelectedOfferChange } = props;
 
   return (
     <div className="cities__places-list places__list tabs__content">
@@ -29,8 +16,8 @@ const PlaceCardList = (props: PlaceCardListProps): JSX.Element => {
           <PlaceCard
             key={offer.id}
             {...{ offer }}
-            onMouseMove={handleCardMouseMove}
-            onMouseLeave={handleCardMouseLeave}
+            onMouseMove={() => onSelectedOfferChange(offer)}
+            onMouseLeave={() => onSelectedOfferChange(null)}
           />
         ))
         .slice(0, props.offersCount)}

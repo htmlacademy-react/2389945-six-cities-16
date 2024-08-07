@@ -1,3 +1,5 @@
+import { AuthorizationStatus } from '../const';
+
 export type LocationType = {
   latitude: number;
   longitude: number;
@@ -22,9 +24,49 @@ export type OfferType = {
   previewImage: string;
 };
 
-export type AppProps = {
-    offersCount: number;
-    offers: OfferType[];
-  };
+export type ReviewType = {
+  id: string;
+  date: string;
+  user: UserType;
+  comment: string;
+  rating: number;
+};
 
+export type UserType = {
+  name: string;
+  avatarUrl: string;
+  isPro: boolean;
+};
+
+export type OfferInfoType = {
+  id: string;
+  title: string;
+  type: string;
+  price: number;
+  city: CityType;
+  location: LocationType;
+  isFavorite: boolean;
+  isPremium: boolean;
+  rating: number;
+  description: string;
+  bedrooms: number;
+  goods: string[];
+  host: UserType;
+  images: string[];
+  maxAdults: number;
+};
+
+export type AppProps = {
+  offersCount: number;
+  offers: OfferType[];
+};
+
+export type HeaderProps = {
+  authorizationStatus: AuthorizationStatus;
+};
+
+export type RateType = {
+  name: string;
+  mark: number;
+};
 
