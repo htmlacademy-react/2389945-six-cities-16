@@ -18,7 +18,7 @@ export const PlaceCard = (props: PlaceCardProps): JSX.Element => {
 
   const handleMouseMove = () => onMouseMove(offer.id);
 
-  const handleMouseLeave = () => onMouseLeave;
+  const handleMouseLeave = () => onMouseLeave();
 
   return (
     <article
