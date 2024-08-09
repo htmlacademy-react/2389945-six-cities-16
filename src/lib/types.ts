@@ -57,7 +57,7 @@ export type OfferInfoType = {
 };
 
 export type AppProps = {
-  offersCount: number;
+  //offersCount: number;
   offers: OfferType[];
 };
 

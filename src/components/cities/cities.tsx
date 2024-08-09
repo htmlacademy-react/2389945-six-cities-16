@@ -1,16 +1,27 @@
 import { Link } from 'react-router-dom';
-import { CityList } from '../../const';
+import { CityList, CityInfo } from '../../const';
 import { CityType } from '../../lib/types';
 import classNames from 'classnames';
+import { useAppDispatch } from '../../hooks';
+import { setCurrentCity } from '../../store/action';
 
 type CitiesProps = {
   cities: typeof CityList;
   currentCity: CityType | null;
-  onCityClick: (cityName: string) => void;
 };
 
 export const Cities = (props: CitiesProps): JSX.Element => {
-  const { cities, currentCity, onCityClick } = props;
+  const { cities, currentCity } = props;
+  const dispatch = useAppDispatch();
+
+  const onCityClick = (cityName: string): void => {
+    CityInfo.some((city) => {
+      if (city.name === cityName) {
+        dispatch(setCurrentCity(city));
+      }
+    });
+  };
+
   const handleCityClick = (evt: React.MouseEvent<HTMLUListElement>) => {
     evt.preventDefault();
     const targetElement = evt.target as HTMLFormElement;
@@ -20,15 +31,12 @@ export const Cities = (props: CitiesProps): JSX.Element => {
   };
 
   return (
-    <ul
-      className="locations__list tabs__list"
-      onClick={handleCityClick}
-    >
+    <ul className="locations__list tabs__list" onClick={handleCityClick}>
       {Object.values(cities).map((city, index) => {
         const classes = classNames({
           'locations__item-link': true,
           'tabs__item': true,
-          'tabs__item--active': city.toString() === currentCity?.name
+          'tabs__item--active': city.toString() === currentCity?.name,
         });
         const keyValue = `${index}-${city}`;
 
