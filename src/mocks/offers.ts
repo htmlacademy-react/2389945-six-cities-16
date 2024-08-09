@@ -1,28 +1,5 @@
 const OFFERS = [
   {
-    'id': '6779022c-ac26-4554-ac2e-227dd6349161',
-    'title': 'House in countryside',
-    'type': 'house',
-    'price': 495,
-    'previewImage': 'https://16.design.htmlacademy.pro/static/hotel/2.jpg',
-    'city': {
-      'name': 'Paris',
-      'location': {
-        'latitude': 48.85661,
-        'longitude': 2.351499,
-        'zoom': 13
-      }
-    },
-    'location': {
-      'latitude': 48.868610000000004,
-      'longitude': 2.342499,
-      'zoom': 16
-    },
-    'isFavorite': true,
-    'isPremium': false,
-    'rating': 4.8
-  },
-  {
     'id': '8616b887-ac5f-41ae-a1d2-6ef5a5aa7e13',
     'title': 'Canal View Prinsengracht',
     'type': 'apartment',
@@ -1332,52 +1309,6 @@ const OFFERS = [
     'isFavorite': false,
     'isPremium': false,
     'rating': 3.7
-  },
-  {
-    'id': 'e762d166-8708-47ac-bdb1-90e54ee82062',
-    'title': 'The Joshua Tree House',
-    'type': 'room',
-    'price': 272,
-    'previewImage': 'https://16.design.htmlacademy.pro/static/hotel/19.jpg',
-    'city': {
-      'name': 'Brussels',
-      'location': {
-        'latitude': 50.846557,
-        'longitude': 4.351697,
-        'zoom': 13
-      }
-    },
-    'location': {
-      'latitude': 50.867557,
-      'longitude': 4.357697,
-      'zoom': 16
-    },
-    'isFavorite': false,
-    'isPremium': true,
-    'rating': 2.5
-  },
-  {
-    'id': '955da23b-e625-46f1-9534-6cc3ed1f345b',
-    'title': 'Tile House',
-    'type': 'apartment',
-    'price': 177,
-    'previewImage': 'https://16.design.htmlacademy.pro/static/hotel/12.jpg',
-    'city': {
-      'name': 'Brussels',
-      'location': {
-        'latitude': 50.846557,
-        'longitude': 4.351697,
-        'zoom': 13
-      }
-    },
-    'location': {
-      'latitude': 50.842557,
-      'longitude': 4.363696999999999,
-      'zoom': 16
-    },
-    'isFavorite': false,
-    'isPremium': true,
-    'rating': 3.4
   },
   {
     'id': '3aa2c29f-0275-4adf-90e4-755fa48e9b2f',

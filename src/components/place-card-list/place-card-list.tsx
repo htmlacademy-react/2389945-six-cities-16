@@ -6,7 +6,7 @@ type PlaceCardListProps = AppProps & {
   onSelectedOfferChange: React.Dispatch<React.SetStateAction<OfferType | null>>;
 };
 
-const PlaceCardList = (props: PlaceCardListProps): JSX.Element => {
+export const PlaceCardList = (props: PlaceCardListProps): JSX.Element => {
   const { offers, onSelectedOfferChange } = props;
 
   return (
@@ -19,10 +19,8 @@ const PlaceCardList = (props: PlaceCardListProps): JSX.Element => {
             onMouseMove={() => onSelectedOfferChange(offer)}
             onMouseLeave={() => onSelectedOfferChange(null)}
           />
-        ))
-        .slice(0, props.offersCount)}
+        ))}
     </div>
   );
 };
 
-export default PlaceCardList;

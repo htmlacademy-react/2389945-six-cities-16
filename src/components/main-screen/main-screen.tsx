@@ -1,26 +1,19 @@
 import { Map } from '../map/map';
 import { useState } from 'react';
-import { AppProps } from '../../lib/types';
+import { useAppSelector } from '../../hooks';
 import { OfferType } from '../../lib/types';
-import { CityType } from '../../lib/types';
-import { CityList, CityInfo } from '../../const';
+import { CityList } from '../../const';
 import { Cities } from '../cities/cities';
-import PlaceCardList from '../place-card-list/place-card-list';
+import { PlaceCardList } from '../place-card-list/place-card-list';
 
-const MainScreen = ({ offersCount, offers }: AppProps): JSX.Element => {
-  const [currentCity, setCurrentCity] = useState<CityType>(CityInfo[0]);
+const MainScreen = (): JSX.Element => {
   const [currentOffer, setCurrentOffer] = useState<OfferType | null>(null);
 
-  const handleCityClick = (cityName: string): void => {
-    const selectedCity = CityInfo.find((city) => city.name === cityName);
-    if (selectedCity) {
-      setCurrentCity(selectedCity);
-    }
-  };
+  const currentCity = useAppSelector((state) => state.currentCity);
+  const offers = useAppSelector((state) => state.offers);
 
-  const cityOffers = offers
-    .filter((offer) => currentCity && offer.city.name === currentCity.name)
-    .slice(0, offersCount);
+  const cityOffers =
+    offers.filter((offer) => currentCity.name && offer.city.name === currentCity.name);
 
   return (
     <main className="page__main page__main--index">
@@ -30,7 +23,6 @@ const MainScreen = ({ offersCount, offers }: AppProps): JSX.Element => {
           <Cities
             cities={CityList}
             currentCity={currentCity}
-            onCityClick={handleCityClick}
           />
         </section>
       </div>
@@ -39,7 +31,7 @@ const MainScreen = ({ offersCount, offers }: AppProps): JSX.Element => {
           <section className="cities__places places">
             <h2 className="visually-hidden">Places</h2>
             <b className="places__found">
-              {offers.length} places to stay in {currentCity.name}
+              {cityOffers.length} places to stay in {currentCity.name}
             </b>
             <form className="places__sorting" action="#" method="get">
               <span className="places__sorting-caption">Sort by</span>
@@ -68,7 +60,6 @@ const MainScreen = ({ offersCount, offers }: AppProps): JSX.Element => {
               </ul>
             </form>
             <PlaceCardList
-              offersCount={offersCount}
               offers={cityOffers}
               onSelectedOfferChange={setCurrentOffer}
             />
