@@ -1,13 +1,10 @@
+import { useAppSelector } from '../../hooks';
 import { PlaceCard } from '../place-card/place-card';
-import { OfferType } from '../../lib/types';
-import { getFavoriteOffers, getOffersByCity } from './utils';
+import { getOffersByCity } from './utils';
 
-type FavoritesProps = {
-  offers: OfferType[];
-};
-
-const Favorites = (props: FavoritesProps): JSX.Element => {
-  const favoriteOffers: OfferType[] = getFavoriteOffers(props.offers);
+export const Favorites = (): JSX.Element => {
+  const offers = useAppSelector((state) => state.offers);
+  const favoriteOffers = offers.filter((offer) => offer.isFavorite);
   const favoriteOffersByCity = getOffersByCity(favoriteOffers);
 
   return (
@@ -38,5 +35,3 @@ const Favorites = (props: FavoritesProps): JSX.Element => {
     </main>
   );
 };
-
-export default Favorites;
