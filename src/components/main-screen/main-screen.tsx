@@ -6,24 +6,22 @@ import { CityList } from '../../const';
 import { Cities } from '../cities/cities';
 import { PlaceCardList } from '../place-card-list/place-card-list';
 
-const MainScreen = (): JSX.Element => {
+export const MainScreen = (): JSX.Element => {
   const [currentOffer, setCurrentOffer] = useState<OfferType | null>(null);
 
   const currentCity = useAppSelector((state) => state.currentCity);
   const offers = useAppSelector((state) => state.offers);
 
-  const cityOffers =
-    offers.filter((offer) => currentCity.name && offer.city.name === currentCity.name);
+  const cityOffers = offers.filter(
+    (offer) => currentCity.name && offer.city.name === currentCity.name
+  );
 
   return (
     <main className="page__main page__main--index">
       <h1 className="visually-hidden">Cities</h1>
       <div className="tabs">
         <section className="locations container">
-          <Cities
-            cities={CityList}
-            currentCity={currentCity}
-          />
+          <Cities cities={CityList} currentCity={currentCity} />
         </section>
       </div>
       <div className="cities">
@@ -76,5 +74,3 @@ const MainScreen = (): JSX.Element => {
     </main>
   );
 };
-
-export default MainScreen;

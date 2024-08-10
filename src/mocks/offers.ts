@@ -1,4 +1,4 @@
-const OFFERS = [
+export const OFFERS = [
   {
     'id': '8616b887-ac5f-41ae-a1d2-6ef5a5aa7e13',
     'title': 'Canal View Prinsengracht',
@@ -2692,4 +2692,3 @@ const OFFERS = [
   }
 ];
 
-export { OFFERS };

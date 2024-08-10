@@ -1,4 +1,4 @@
-const OfferNotLogged = (): JSX.Element => (
+export const OfferNotLogged = (): JSX.Element => (
   <section className="offer">
     <div className="offer__gallery-container container">
       <div className="offer__gallery">
@@ -162,5 +162,3 @@ const OfferNotLogged = (): JSX.Element => (
     </div>
   </section>
 );
-
-export default OfferNotLogged;

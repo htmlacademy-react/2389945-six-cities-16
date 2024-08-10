@@ -1,4 +1,4 @@
-const NotFound404 = (): JSX.Element => (
+export const NotFound404 = (): JSX.Element => (
   <section className="cities__no-places2">
     <div className="cities__status-wrapper tabs__content">
       <b className="cities__status">404 Page Not Found</b>
@@ -6,5 +6,3 @@ const NotFound404 = (): JSX.Element => (
     </div>
   </section>
 );
-
-export default NotFound404;

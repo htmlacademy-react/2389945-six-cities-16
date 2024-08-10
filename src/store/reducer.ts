@@ -16,7 +16,7 @@ const initialState: InitialState = {
   favorites: [],
 };
 
-const reducer = createReducer(initialState, (builder) => {
+export const reducer = createReducer(initialState, (builder) => {
   builder
     .addCase(setCurrentCity, (state, action) => {
       state.currentCity = action.payload;
@@ -26,4 +26,3 @@ const reducer = createReducer(initialState, (builder) => {
     });
 });
 
-export { reducer };

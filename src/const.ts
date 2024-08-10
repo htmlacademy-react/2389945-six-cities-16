@@ -1,10 +1,10 @@
 import { CityType, RateType } from './lib/types';
 
 export const DEFAULT_MARKER_URL =
-  'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg';
+  '../public/img/pin.svg';
 
 export const CURRENT_MARKER_URL =
-  'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/main-pin.svg';
+  '../public/img/pin-active.svg';
 
 export const OffersSettings = {
   offersCount: 5,

@@ -4,7 +4,7 @@ type RateFormProps = {
   rate: RateType;
 };
 
-const RateForm = (props: RateFormProps): JSX.Element => {
+export const RateForm = (props: RateFormProps): JSX.Element => {
   const { name, mark } = props.rate;
   return (
     <>
@@ -27,5 +27,3 @@ const RateForm = (props: RateFormProps): JSX.Element => {
     </>
   );
 };
-
-export default RateForm;

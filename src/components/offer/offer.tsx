@@ -1,17 +1,17 @@
-import ReviewForm from '../review-form/review-form';
+import { ReviewForm } from '../review-form/review-form';
 import { Map } from '../map/map';
 import { OfferInfoType } from '../../lib/types';
 import { OFFERS } from '../../mocks/offers';
 import { REVIEWS } from '../../mocks/reviews';
 import { NearPlaces } from '../near-places/near-places';
 import { PlaceRating } from '../place-rating/place-rating';
-import ReviewList from '../review-list/review-list';
+import { ReviewList } from '../review-list/review-list';
 
 type OfferProps = {
   offer: OfferInfoType;
 };
 
-const Offer = (props: OfferProps): JSX.Element => {
+export const Offer = (props: OfferProps): JSX.Element => {
   const { offer } = props;
 
   const nearPlaceOffers = OFFERS.filter(
@@ -126,5 +126,3 @@ const Offer = (props: OfferProps): JSX.Element => {
     </section>
   );
 };
-
-export default Offer;

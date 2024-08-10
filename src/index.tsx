@@ -1,8 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
-import App from './components/app/app';
-//import { OFFERS } from './mocks/offers';
+import { App } from './components/app/app';
 import { store } from './store';
 
 const root = ReactDOM.createRoot(
