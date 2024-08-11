@@ -1,4 +1,4 @@
-import { CityType, RateType } from './lib/types';
+import { CityType, RateType, SortNameType, OfferType } from './lib/types';
 
 export const DEFAULT_MARKER_URL =
   '../public/img/pin.svg';
@@ -114,3 +114,13 @@ export enum SortingList {
   PriceDecrease = 'Price: high to low',
   TopRated = 'Top rated first',
 }
+
+export const CompareSortValues: {
+  [key in SortNameType]: (valueOne: OfferType, valueTwo: OfferType) => number
+} = {
+  Popular: () => 0,
+  PriceIncrease: (valueOne, valueTwo) => valueOne.price - valueTwo.price,
+  PriceDecrease: (valueOne, valueTwo) => valueTwo.price - valueOne.price,
+  TopRated: (valueOne, valueTwo) => valueTwo.rating - valueOne.rating,
+};
+
