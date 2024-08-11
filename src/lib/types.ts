@@ -1,4 +1,5 @@
 import { AuthorizationStatus } from '../const';
+import { SortingList } from '../const';
 
 export type LocationType = {
   latitude: number;
@@ -57,7 +58,6 @@ export type OfferInfoType = {
 };
 
 export type AppProps = {
-  //offersCount: number;
   offers: OfferType[];
 };
 
@@ -69,4 +69,6 @@ export type RateType = {
   name: string;
   mark: number;
 };
+
+export type SortNameType = keyof typeof SortingList;
 

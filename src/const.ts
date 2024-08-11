@@ -107,3 +107,10 @@ export const RateSettings: RateType[] = [
     mark: 1,
   },
 ];
+
+export enum SortingList {
+  Popular = 'Popular',
+  PriceIncrease = 'Price: low to high',
+  PriceDecrease = 'Price: high to low',
+  TopRated = 'Top rated first',
+}
