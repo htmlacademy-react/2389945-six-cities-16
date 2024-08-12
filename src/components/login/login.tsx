@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 
-const Login = (): JSX.Element => (
+export const Login = (): JSX.Element => (
   <div className="page page--gray page--login">
     <header className="header">
       <div className="container">
@@ -61,5 +61,3 @@ const Login = (): JSX.Element => (
     </main>
   </div>
 );
-
-export default Login;

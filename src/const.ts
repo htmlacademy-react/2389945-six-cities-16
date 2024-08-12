@@ -1,10 +1,10 @@
-import { CityType, RateType } from './lib/types';
+import { CityType, RateType, SortNameType, OfferType } from './lib/types';
 
 export const DEFAULT_MARKER_URL =
-  'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg';
+  '../public/img/pin.svg';
 
 export const CURRENT_MARKER_URL =
-  'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/main-pin.svg';
+  '../public/img/pin-active.svg';
 
 export const OffersSettings = {
   offersCount: 5,
@@ -107,3 +107,20 @@ export const RateSettings: RateType[] = [
     mark: 1,
   },
 ];
+
+export enum SortingList {
+  Popular = 'Popular',
+  PriceIncrease = 'Price: low to high',
+  PriceDecrease = 'Price: high to low',
+  TopRated = 'Top rated first',
+}
+
+export const CompareSortValues: {
+  [key in SortNameType]: (valueOne: OfferType, valueTwo: OfferType) => number
+} = {
+  Popular: () => 0,
+  PriceIncrease: (valueOne, valueTwo) => valueOne.price - valueTwo.price,
+  PriceDecrease: (valueOne, valueTwo) => valueTwo.price - valueOne.price,
+  TopRated: (valueOne, valueTwo) => valueTwo.rating - valueOne.rating,
+};
+

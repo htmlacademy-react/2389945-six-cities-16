@@ -5,7 +5,7 @@ type OfferReviewListProps = {
   reviews: ReviewType[];
 };
 
-const ReviewList = (props: OfferReviewListProps): JSX.Element => {
+export const ReviewList = (props: OfferReviewListProps): JSX.Element => {
   const { reviews } = props;
   return (
     <ul className="reviews__list">
@@ -15,5 +15,3 @@ const ReviewList = (props: OfferReviewListProps): JSX.Element => {
     </ul>
   );
 };
-
-export default ReviewList;

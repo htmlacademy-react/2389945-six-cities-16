@@ -1,8 +1,8 @@
 import { FormEvent, useState } from 'react';
 import { OffersSettings, RateSettings } from '../../const';
-import RateForm from '../rate-form/rate-form';
+import { RateForm } from '../rate-form/rate-form';
 
-const ReviewForm = (): JSX.Element => {
+export const ReviewForm = (): JSX.Element => {
   const [rating, setRating] = useState(0);
   const [review, setReview] = useState('');
 
@@ -59,5 +59,3 @@ const ReviewForm = (): JSX.Element => {
     </form>
   );
 };
-
-export default ReviewForm;

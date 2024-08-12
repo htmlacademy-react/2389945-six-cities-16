@@ -6,24 +6,22 @@ import { CityList } from '../../const';
 import { Cities } from '../cities/cities';
 import { PlaceCardList } from '../place-card-list/place-card-list';
 
-const MainScreen = (): JSX.Element => {
+export const MainScreen = (): JSX.Element => {
   const [currentOffer, setCurrentOffer] = useState<OfferType | null>(null);
 
   const currentCity = useAppSelector((state) => state.currentCity);
   const offers = useAppSelector((state) => state.offers);
 
-  const cityOffers =
-    offers.filter((offer) => currentCity.name && offer.city.name === currentCity.name);
+  const cityOffers = offers.filter(
+    (offer) => currentCity.name && offer.city.name === currentCity.name
+  );
 
   return (
     <main className="page__main page__main--index">
       <h1 className="visually-hidden">Cities</h1>
       <div className="tabs">
         <section className="locations container">
-          <Cities
-            cities={CityList}
-            currentCity={currentCity}
-          />
+          <Cities cities={CityList} currentCity={currentCity} />
         </section>
       </div>
       <div className="cities">
@@ -33,32 +31,6 @@ const MainScreen = (): JSX.Element => {
             <b className="places__found">
               {cityOffers.length} places to stay in {currentCity.name}
             </b>
-            <form className="places__sorting" action="#" method="get">
-              <span className="places__sorting-caption">Sort by</span>
-              <span className="places__sorting-type" tabIndex={0}>
-                Popular
-                <svg className="places__sorting-arrow" width="7" height="4">
-                  <use xlinkHref="#icon-arrow-select"></use>
-                </svg>
-              </span>
-              <ul className="places__options places__options--custom places__options--opened">
-                <li
-                  className="places__option places__option--active"
-                  tabIndex={0}
-                >
-                  Popular
-                </li>
-                <li className="places__option" tabIndex={0}>
-                  Price: low to high
-                </li>
-                <li className="places__option" tabIndex={0}>
-                  Price: high to low
-                </li>
-                <li className="places__option" tabIndex={0}>
-                  Top rated first
-                </li>
-              </ul>
-            </form>
             <PlaceCardList
               offers={cityOffers}
               onSelectedOfferChange={setCurrentOffer}
@@ -76,5 +48,3 @@ const MainScreen = (): JSX.Element => {
     </main>
   );
 };
-
-export default MainScreen;
