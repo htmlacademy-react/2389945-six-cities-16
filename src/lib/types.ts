@@ -67,7 +67,6 @@ export type RateType = {
 export type SortNameType = keyof typeof SortingList;
 
 export type UserType = {
-  id: number;
   name: string;
   avatarUrl: string;
   isPro: boolean;

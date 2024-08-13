@@ -1,8 +1,8 @@
 import { AppRoute } from '../../const';
-import { OfferType } from '../../lib/types';
+import { OfferInfoType } from '../../lib/types';
 
 type PlaceCardProps = {
-  offer: OfferType;
+  offer: OfferInfoType;
   onMouseMove?: (id: string) => void;
   onMouseLeave?: () => void;
   place?: 'cities' | 'favorites' | 'near-places';
@@ -35,7 +35,7 @@ export const PlaceCard = (props: PlaceCardProps): JSX.Element => {
         <a href="#">
           <img
             className="place-card__image"
-            src={offer.previewImage}
+            src={offer.images[0]}
             width="260"
             height="200"
             alt="Place image"

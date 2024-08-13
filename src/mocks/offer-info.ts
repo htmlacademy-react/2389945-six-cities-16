@@ -30,7 +30,9 @@ export const OFFER_INFO: OfferInfoType =
   'host': {
     'name': 'Oliver Conner',
     'avatarUrl': '../../public/img/avatar-max.jpg',
-    'isPro': false
+    'isPro': false,
+    'email': 'aaa@bbb.com',
+    'token': '12345'
   },
   'images': [
     '../../public/img/apartment-01.jpg',

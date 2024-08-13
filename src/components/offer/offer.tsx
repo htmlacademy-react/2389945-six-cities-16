@@ -9,7 +9,7 @@ import { Map } from '../map/map';
 //import { OFFERS } from '../../mocks/offers';
 //import { REVIEWS } from '../../mocks/reviews';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { fetchOffer, fetchNearbyOffers, fetchComments, postComment } from '../../store/action';
+import { fetchOffer, fetchNearPlaceOffers, fetchComments, postComment } from '../../store/action';
 import { Spinner } from '../spinner/spinner';
 import { CommentAuth } from '../../lib/types';
 
@@ -28,7 +28,7 @@ export const Offer = (): JSX.Element => { const params = useParams();
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
   const isOfferLoading = useAppSelector((state) => state.isOfferLoading);
   const offer = useAppSelector((state) => state.offer);
-  const nearbyOffers = useAppSelector((state) => state.nearbyOffers);
+  const nearPlaceOffers = useAppSelector((state) => state.nearPlaceOffers);
   const comments = useAppSelector((state) => state.comments);
 
   useEffect(() => {
@@ -51,7 +51,7 @@ export const Offer = (): JSX.Element => { const params = useParams();
 
   const { id, images, isPremium, title, rating, type, bedrooms, maxAdults, price, goods, host, description, city, location } = offer;
 
-  const locations = nearbyOffers.map(({ id: nearbyId, location: nearbyLocation, }) => ({ id: nearbyId, ...nearbyLocation }));
+  const locations = nearPlaceOffers.map(({ id: nearbyId, location: nearbyLocation, }) => ({ id: nearbyId, ...nearbyLocation }));
   locations.push({ id, ...location });
 
   const onFormSubmit = (formData: Omit<CommentAuth, 'id'>) => {
@@ -59,16 +59,18 @@ export const Offer = (): JSX.Element => { const params = useParams();
   };
 
 
+  /*
   const nearPlaceOffers = OFFERS.filter(
     (nearbyOffer) =>
       nearbyOffer.city.name === offer.city.name && nearbyOffer.id !== offer.id
   ).slice(1, 4);
+*/
 
   return (
     <section className="offer">
       <div className="offer__gallery-container container">
         <div className="offer__gallery">
-          {offer.images.map((image, index) => {
+          {images.map((image, index) => {
             const keyValue = `${index}-image`;
             return (
               <div className="offer__image-wrapper" key={keyValue}>

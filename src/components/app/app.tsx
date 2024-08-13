@@ -44,37 +44,3 @@ export const App = (): JSX.Element => (
     </Routes>
   </HistoryRouter>
 );
-
-/*
-export const App = (): JSX.Element => {
-  const dispatch = useAppDispatch();
-  dispatch(setOffers(OFFERS));
-
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route
-          path={AppRoute.Root}
-          element={<Header authorizationStatus={AuthorizationStatus.Auth} />}
-        >
-          <Route index element={<MainScreen />} />
-          <Route path={AppRoute.Login} element={<Login />} />
-          <Route
-            path={AppRoute.Favorites}
-            element={
-              <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
-                <Favorites />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path={`${AppRoute.Offer}/:id`}
-            element={<Offer offer={OFFER_INFO} />}
-          />
-        </Route>
-        <Route path="*" element={<NotFound404 />} />
-      </Routes>
-    </BrowserRouter>
-  );
-};
-*/

@@ -2,7 +2,7 @@ import type { History } from 'history';
 import type { AxiosInstance, AxiosError } from 'axios';
 import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
 
-import type { CityType, UserAuth, UserType, OfferType, SortNameType, CommentType, CommentAuth } from '../lib/types';
+import type { CityType, UserAuth, UserType, OfferType, OfferInfoType, SortNameType, CommentType, CommentAuth } from '../lib/types';
 import { ApiRoute, AppRoute, HttpCode } from '../const';
 import { setToken } from '../services/token';
 
@@ -26,11 +26,11 @@ export const Action = {
 export const setCurrentCity = createAction<CityType>(Action.SET_CITY);
 export const setCurrentSort = createAction<SortNameType>(Action.SET_SORTING);
 
-export const fetchOffers = createAsyncThunk<OfferType[], undefined, { extra: Extra }>(
+export const fetchOffers = createAsyncThunk<OfferInfoType[], undefined, { extra: Extra }>(
   Action.FETCH_OFFERS,
   async (_, { extra }) => {
     const { api } = extra;
-    const { data } = await api.get<OfferType[]>(ApiRoute.Offers);
+    const { data } = await api.get<OfferInfoType[]>(ApiRoute.Offers);
 
     return data;
   });
@@ -55,7 +55,7 @@ export const fetchOffer = createAsyncThunk<OfferType, OfferType['id'], { extra: 
     }
   });
 
-export const fetchNearbyOffers = createAsyncThunk<OfferType[], OfferType['id'], { extra: Extra }>(
+export const fetchNearPlaceOffers = createAsyncThunk<OfferType[], OfferType['id'], { extra: Extra }>(
   Action.FETCH_NEARBY_OFFERS,
   async (id, { extra }) => {
     const { api } = extra;

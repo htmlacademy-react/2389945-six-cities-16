@@ -1,10 +1,10 @@
-import { OfferType } from '../../lib/types';
+import { OfferInfoType } from '../../lib/types';
 
-export const getFavoriteOffers = (offers: OfferType[]): OfferType[] => offers.filter((offer) => offer.isFavorite);
+export const getFavoriteOffers = (offers: OfferInfoType[]): OfferInfoType[] => offers.filter((offer) => offer.isFavorite);
 
-export const getOffersByCity = (offers: OfferType[]) =>
+export const getOffersByCity = (offers: OfferInfoType[]) =>
   offers.reduce<{
-    [key: string]: OfferType[];
+    [key: string]: OfferInfoType[];
   }>((acc, current) => {
     const city = current.city.name;
     if (!(city in acc)) {
