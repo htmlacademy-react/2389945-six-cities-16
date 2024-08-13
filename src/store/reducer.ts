@@ -22,7 +22,7 @@ type State = {
   currentSort: SortNameType;
   authorizationStatus: AuthorizationStatus;
   user: UserType['email'];
-  nearPlaceOffers: OfferType[];
+  nearPlaceOffers: OfferInfoType[];
   comments: CommentType[];
 };
 

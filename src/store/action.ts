@@ -55,11 +55,11 @@ export const fetchOffer = createAsyncThunk<OfferType, OfferType['id'], { extra: 
     }
   });
 
-export const fetchNearPlaceOffers = createAsyncThunk<OfferType[], OfferType['id'], { extra: Extra }>(
+export const fetchNearPlaceOffers = createAsyncThunk<OfferInfoType[], OfferType['id'], { extra: Extra }>(
   Action.FETCH_NEARBY_OFFERS,
   async (id, { extra }) => {
     const { api } = extra;
-    const { data } = await api.get<OfferType[]>(`${ApiRoute.Offers}/${id}/nearby`);
+    const { data } = await api.get<OfferInfoType[]>(`${ApiRoute.Offers}/${id}/nearby`);
 
     return data;
   });
