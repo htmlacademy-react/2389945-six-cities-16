@@ -1,18 +1,63 @@
+import { useParams } from 'react-router-dom';
+import { useEffect } from 'react';
+
 import { ReviewForm } from '../review-form/review-form';
 import { Map } from '../map/map';
-import { OfferInfoType } from '../../lib/types';
-import { OFFERS } from '../../mocks/offers';
-import { REVIEWS } from '../../mocks/reviews';
+//import { PlaceCard } from '../place-card/place-card';
+
+//import { OfferInfoType } from '../../lib/types';
+//import { OFFERS } from '../../mocks/offers';
+//import { REVIEWS } from '../../mocks/reviews';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { fetchOffer, fetchNearbyOffers, fetchComments, postComment } from '../../store/action';
+import { Spinner } from '../spinner/spinner';
+import { CommentAuth } from '../../lib/types';
+
 import { NearPlaces } from '../near-places/near-places';
 import { PlaceRating } from '../place-rating/place-rating';
 import { ReviewList } from '../review-list/review-list';
 
+/*
 type OfferProps = {
   offer: OfferInfoType;
 };
+*/
 
-export const Offer = (props: OfferProps): JSX.Element => {
-  const { offer } = props;
+export const Offer = (): JSX.Element => { const params = useParams();
+  const dispatch = useAppDispatch();
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const isOfferLoading = useAppSelector((state) => state.isOfferLoading);
+  const offer = useAppSelector((state) => state.offer);
+  const nearbyOffers = useAppSelector((state) => state.nearbyOffers);
+  const comments = useAppSelector((state) => state.comments);
+
+  useEffect(() => {
+    const { id } = params;
+    if (id) {
+      const parsedId = Number(id);
+      dispatch(fetchOffer(parsedId));
+      dispatch(fetchNearbyOffers(parsedId));
+      dispatch(fetchComments(parsedId));
+    }
+  }, [params, dispatch]);
+
+  if (!offer) {
+    return null;
+  }
+
+  if (isOfferLoading) {
+    return <Spinner />;
+  }
+
+  const { id, images, isPremium, title, rating, type, bedrooms, maxAdults, price, goods, host, description, city, location } = offer;
+
+  const locations = nearbyOffers.map(({ id: nearbyId, location: nearbyLocation, }) => ({ id: nearbyId, ...nearbyLocation }));
+  locations.push({ id, ...location });
+
+  const onFormSubmit = (formData: Omit<CommentAuth, 'id'>) => {
+    dispatch(postComment({ id, ...formData }));
+  };
+
 
   const nearPlaceOffers = OFFERS.filter(
     (nearbyOffer) =>
