@@ -52,7 +52,7 @@ export type OfferInfoType = {
 };
 
 export type AppProps = {
-  offers: OfferType[];
+  offers: OfferInfoType[];
 };
 
 export type HeaderProps = {

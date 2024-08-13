@@ -1,14 +1,14 @@
 import { Icon, layerGroup, Marker } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { useEffect, useRef } from 'react';
-import { CityType, OfferType } from '../../lib/types';
+import { CityType, OfferInfoType } from '../../lib/types';
 import { useMap } from '../../hooks/use-map';
 import { DEFAULT_MARKER_URL, CURRENT_MARKER_URL } from '../../const';
 
 type MapProps = {
   city: CityType | null;
-  offers: OfferType[];
-  currentOffer?: OfferType | null;
+  offers: OfferInfoType[];
+  currentOffer?: OfferInfoType | null;
   place?: 'cities' | 'offer';
 };
 
