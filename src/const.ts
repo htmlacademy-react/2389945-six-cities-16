@@ -12,12 +12,28 @@ export const OffersSettings = {
   reviewText: { minLength: 50, maxLength: 300 },
 };
 
+/*
 export const AppRoute = {
   Root: '/',
   Login: '/login',
   Favorites: '/favorites',
   Offer: '/offer/:id',
 };
+*/
+
+export enum AppRoute {
+  Root = '/',
+  Login = '/login',
+  Favorites = '/favorites',
+  Offer = '/offer',
+  NotFound = '/404'
+}
+
+export enum ApiRoute {
+  Offers = '/hotels',
+  Login = '/login',
+  Comments = '/comments'
+}
 
 export enum AuthorizationStatus {
   Auth = 'AUTH',
@@ -123,4 +139,9 @@ export const CompareSortValues: {
   PriceDecrease: (valueOne, valueTwo) => valueTwo.price - valueOne.price,
   TopRated: (valueOne, valueTwo) => valueTwo.rating - valueOne.rating,
 };
+
+export enum HttpCode {
+  NotFound = 404
+}
+
 

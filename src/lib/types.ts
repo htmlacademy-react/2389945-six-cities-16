@@ -33,12 +33,6 @@ export type ReviewType = {
   rating: number;
 };
 
-export type UserType = {
-  name: string;
-  avatarUrl: string;
-  isPro: boolean;
-};
-
 export type OfferInfoType = {
   id: string;
   title: string;
@@ -71,4 +65,24 @@ export type RateType = {
 };
 
 export type SortNameType = keyof typeof SortingList;
+
+export type UserType = {
+  id: number;
+  name: string;
+  avatarUrl: string;
+  isPro: boolean;
+  email: string;
+  token: string;
+};
+
+export type CommentType = {
+  id: number;
+  comment: string;
+  date: string;
+  rating: number;
+  user: UserType;
+};
+
+export type UserAuth = Pick<UserType, 'email'> & { password: string };
+export type CommentAuth = Pick<CommentType, 'comment' | 'rating'> & Pick<OfferType, 'id'>
 
