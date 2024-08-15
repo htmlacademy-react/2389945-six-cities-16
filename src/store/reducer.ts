@@ -11,7 +11,7 @@ import {
   setCurrentCity,
   setCurrentSort,
   setFavoriteOffers,
-  setNearbyOffers,
+  setNearPlaceOffers,
   setOffer,
   setOffers,
   setOffersLoading,
@@ -107,7 +107,7 @@ const reducer = createReducer(initialState, (builder) => {
       );
       setIsFavoriteState(state.offers, action.payload);
     })
-    .addCase(setNearbyOffers, (state, action) => {
+    .addCase(setNearPlaceOffers, (state, action) => {
       state.nearPlaceOffers = action.payload;
     })
     .addCase(setFavoriteOffers, (state, action) => {

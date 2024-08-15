@@ -36,7 +36,7 @@ export const deleteFavoriteOffer = createAction<PrepareAction<OfferType>>(
   (offer: OfferType) => ({ payload: offer })
 );
 
-export const setNearbyOffers = createAction<PrepareAction<OfferType[]>>(
+export const setNearPlaceOffers = createAction<PrepareAction<OfferType[]>>(
   'setNearbyOffers',
   (nearbyOffers: OfferType[]) => ({ payload: nearbyOffers })
 );

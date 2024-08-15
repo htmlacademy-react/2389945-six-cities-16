@@ -18,7 +18,7 @@ import {
   deleteFavoriteOffer,
   setAuthorizationStatus,
   setFavoriteOffers,
-  setNearbyOffers,
+  setNearPlaceOffers,
   setOffer,
   setOffers,
   setOffersLoading,
@@ -71,7 +71,7 @@ export const fetchNearbyOfferAction = createAsyncThunk<
   const { data } = await api.get<ReviewType[]>(
     `${ApiRoute.Offers}/${id}/nearby`
   );
-  dispatch(setNearbyOffers(data));
+  dispatch(setNearPlaceOffers(data));
 });
 
 export const fetchFavoriteOffersAction = createAsyncThunk<
