@@ -7,6 +7,11 @@ export type LocationType = {
   zoom: number;
 };
 
+export type OfferLocationType = {
+  id: string;
+  location: LocationType;
+};
+
 export type CityType = {
   name: string;
   location: LocationType;
@@ -52,7 +57,7 @@ export type OfferInfoType = {
 };
 
 export type AppProps = {
-  offers: OfferInfoType[];
+  offers: OfferType[];
 };
 
 export type HeaderProps = {
@@ -70,8 +75,6 @@ export type UserType = {
   name: string;
   avatarUrl: string;
   isPro: boolean;
-  email: string;
-  token: string;
 };
 
 export type CommentType = {
@@ -82,6 +85,8 @@ export type CommentType = {
   user: UserType;
 };
 
-export type UserAuth = Pick<UserType, 'email'> & { password: string };
-export type CommentAuth = Pick<CommentType, 'comment' | 'rating'> & Pick<OfferType, 'id'>
+export type AuthInfoType = UserType & {
+  email: string;
+  token: string;
+};
 

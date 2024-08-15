@@ -1,106 +1,79 @@
-import type { History } from 'history';
-import type { AxiosInstance, AxiosError } from 'axios';
-import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
+import { createAction, PrepareAction } from '@reduxjs/toolkit';
+import { StatusCodes } from 'http-status-codes';
+import { AppRoute, AuthorizationStatus, SortingList } from '../const';
+import {
+  AuthInfoType,
+  CityType,
+  OfferInfoType,
+  OfferType,
+  ReviewType,
+} from '../lib/types';
 
-import type { CityType, UserAuth, UserType, OfferType, OfferInfoType, SortNameType, CommentType, CommentAuth } from '../lib/types';
-import { ApiRoute, AppRoute, HttpCode } from '../const';
-import { setToken } from '../services/token';
+export const setCurrentCity = createAction<PrepareAction<CityType>>(
+  'setCurrentCity',
+  (city: CityType) => ({ payload: city })
+);
 
-type Extra = {
-  api: AxiosInstance;
-  history: History;
-}
+export const setOffers = createAction<PrepareAction<OfferType[]>>(
+  'setOffers',
+  (offers: OfferType[]) => ({ payload: offers })
+);
 
-export const Action = {
-  SET_CITY: 'city/set',
-  FETCH_OFFERS: 'offers/fetch',
-  FETCH_OFFER: 'offer/fetch',
-  FETCH_NEARBY_OFFERS: 'offers/fetch-nearby',
-  FETCH_COMMENTS: 'offer/fetch-comments',
-  POST_COMMENT: 'offer/post-comment',
-  SET_SORTING: 'sorting/set',
-  LOGIN_USER: 'user/login',
-  FETCH_USER_STATUS: 'user/fetch-status'
-};
+export const setFavoriteOffers = createAction<PrepareAction<OfferType[]>>(
+  'setFavoriteOffers',
+  (offers: OfferType[]) => ({ payload: offers })
+);
 
-export const setCurrentCity = createAction<CityType>(Action.SET_CITY);
-export const setCurrentSort = createAction<SortNameType>(Action.SET_SORTING);
+export const clearFavoritesOffers = createAction('clearFavoritesOffers');
 
-export const fetchOffers = createAsyncThunk<OfferInfoType[], undefined, { extra: Extra }>(
-  Action.FETCH_OFFERS,
-  async (_, { extra }) => {
-    const { api } = extra;
-    const { data } = await api.get<OfferInfoType[]>(ApiRoute.Offers);
+export const appendFavoriteOffer = createAction<PrepareAction<OfferType>>(
+  'appendFavoriteOffer',
+  (offer: OfferType) => ({ payload: offer })
+);
 
-    return data;
-  });
+export const deleteFavoriteOffer = createAction<PrepareAction<OfferType>>(
+  'deleteFavoriteOffer',
+  (offer: OfferType) => ({ payload: offer })
+);
 
-export const fetchOffer = createAsyncThunk<OfferType, OfferType['id'], { extra: Extra }>(
-  Action.FETCH_OFFER,
-  async (id, { extra }) => {
-    const { api, history } = extra;
+export const setNearbyOffers = createAction<PrepareAction<OfferType[]>>(
+  'setNearbyOffers',
+  (nearbyOffers: OfferType[]) => ({ payload: nearbyOffers })
+);
 
-    try {
-      const { data } = await api.get<OfferType>(`${ApiRoute.Offers}/${id}`);
+export const setOffer = createAction<PrepareAction<OfferInfoType>>(
+  'setOffer',
+  (offer: OfferInfoType) => ({ payload: offer })
+);
 
-      return data;
-    } catch (error) {
-      const axiosError = error as AxiosError;
+export const setReviews = createAction<PrepareAction<ReviewType[]>>(
+  'setReviews',
+  (reviews: ReviewType[]) => ({ payload: reviews })
+);
 
-      if (axiosError.response?.status === HttpCode.NotFound) {
-        history.push(AppRoute.NotFound);
-      }
+export const appendReview = createAction<PrepareAction<ReviewType>>(
+  'appendReview',
+  (review: ReviewType) => ({ payload: review })
+);
 
-      return Promise.reject(axiosError);
-    }
-  });
+export const setCurrentSort = createAction<PrepareAction<SortingList>>(
+  'setCurrentSort',
+  (sort: SortingList) => ({ payload: sort })
+);
 
-export const fetchNearPlaceOffers = createAsyncThunk<OfferInfoType[], OfferType['id'], { extra: Extra }>(
-  Action.FETCH_NEARBY_OFFERS,
-  async (id, { extra }) => {
-    const { api } = extra;
-    const { data } = await api.get<OfferInfoType[]>(`${ApiRoute.Offers}/${id}/nearby`);
+export const setAuthorizationStatus = createAction<
+  PrepareAction<AuthorizationStatus>
+>('setAuthorizationStatus', (status: AuthorizationStatus) => ({
+  payload: status,
+}));
 
-    return data;
-  });
+export const setOffersLoading = createAction<boolean>('setOffersLoading');
 
-export const fetchComments = createAsyncThunk<CommentType[], OfferType['id'], { extra: Extra }>(
-  Action.FETCH_COMMENTS,
-  async (id, { extra }) => {
-    const { api } = extra;
-    const { data } = await api.get<CommentType[]>(`${ApiRoute.Comments}/${id}`);
+export const setUserProfile = createAction<PrepareAction<AuthInfoType>>(
+  'setUserProfile',
+  (user: AuthInfoType) => ({ payload: user })
+);
 
-    return data;
-  });
+export const redirectToRoute = createAction<AppRoute>('redirectToRoute');
 
-export const fetchUserStatus = createAsyncThunk<UserType, undefined, { extra: Extra }>(
-  Action.FETCH_USER_STATUS,
-  async (_, { extra }) => {
-    const { api } = extra;
-    const { data } = await api.get<UserType>(ApiRoute.Login);
-
-    return data;
-  });
-
-export const loginUser = createAsyncThunk<UserAuth['email'], UserAuth, { extra: Extra }>(
-  Action.LOGIN_USER,
-  async ({ email, password }, { extra }) => {
-    const { api, history } = extra;
-    const { data } = await api.post<UserType>(ApiRoute.Login, { email, password });
-    const { token } = data;
-
-    setToken(token);
-    history.back();
-
-    return email;
-  });
-
-export const postComment = createAsyncThunk<CommentType[], CommentAuth, { extra: Extra }>(
-  Action.POST_COMMENT,
-  async ({ id, comment, rating }, { extra }) => {
-    const { api } = extra;
-    const { data } = await api.post<CommentType[]>(`${ApiRoute.Comments}/${id}`, { comment, rating });
-
-    return data;
-  });
-
+export const setResponseStatus = createAction<StatusCodes>('setResponseStatus');

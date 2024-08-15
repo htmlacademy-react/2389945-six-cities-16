@@ -1,90 +1,132 @@
-/*
 import { createReducer } from '@reduxjs/toolkit';
-import { CityInfo } from '../const';
-import { CityType, SortNameType } from '../lib/types';
-import { OfferType } from '../lib/types';
-import { setCurrentCity, setOffers, setCurrentSort } from './action';
-*/
+import { StatusCodes } from 'http-status-codes';
+import { AuthorizationStatus, CityInfo, SortingList } from '../const';
 
-import { createReducer } from '@reduxjs/toolkit';
+import {
+  appendFavoriteOffer,
+  appendReview,
+  clearFavoritesOffers,
+  deleteFavoriteOffer,
+  setAuthorizationStatus,
+  setCurrentCity,
+  setCurrentSort,
+  setFavoriteOffers,
+  setNearbyOffers,
+  setOffer,
+  setOffers,
+  setOffersLoading,
+  setResponseStatus,
+  setReviews,
+  setUserProfile,
+} from './action';
 
-import type { CityType, OfferType, OfferInfoType, SortNameType, UserType, CommentType } from '../lib/types';
+import {
+  AuthInfoType,
+  CityType,
+  OfferInfoType,
+  ReviewType,
+  OfferType
+} from '../lib/types';
 
-import { setCurrentCity, fetchOffers, fetchOffer, fetchNearPlaceOffers, setCurrentSort, fetchUserStatus, loginUser, fetchComments, postComment } from './action';
-import { AuthorizationStatus, CityList, CityInfo } from '../const';
-
-type State = {
+type InitialState = {
+  offers: OfferType[];
+  offer: OfferInfoType | null;
+  nearPlaceOffers: OfferType[];
+  reviews: ReviewType[] | [];
   currentCity: CityType;
-  offers: OfferInfoType[];
-  isOffersLoading: boolean;
-  offer: OfferType | null;
-  isOfferLoading: boolean;
-  currentSort: SortNameType;
+  favoriteOffers: OfferType[];
+  currentSort: SortingList;
   authorizationStatus: AuthorizationStatus;
-  user: UserType['email'];
-  nearPlaceOffers: OfferInfoType[];
-  comments: CommentType[];
+  userProfile: AuthInfoType | null;
+  isOffersLoading: boolean;
+  responseStatus: StatusCodes;
 };
 
-const initialState: State = {
-  currentCity: {
-    name: CityList[0],
-    location: CityInfo[0].location,
-  },
+const initialState: InitialState = {
   offers: [],
-  isOffersLoading: false,
   offer: null,
-  isOfferLoading: false,
-  currentSort: 'Popular',
-  authorizationStatus: AuthorizationStatus.NoAuth,
-  user: '',
   nearPlaceOffers: [],
-  comments: [],
+  reviews: [],
+  currentCity: CityInfo[0],
+  favoriteOffers: [],
+  currentSort: SortingList.Popular,
+  authorizationStatus: AuthorizationStatus.Unknown,
+  userProfile: null,
+  isOffersLoading: false,
+  responseStatus: StatusCodes.ACCEPTED,
 };
 
-export const reducer = createReducer(initialState, (builder) => {
+const setIsFavoriteState = (
+  offers: OfferType[],
+  newOfferState: OfferType
+): void => {
+  offers.some((offer) => {
+    if (offer.id === newOfferState.id) {
+      offer.isFavorite = newOfferState.isFavorite;
+      return true;
+    }
+  });
+};
+
+const reducer = createReducer(initialState, (builder) => {
   builder
     .addCase(setCurrentCity, (state, action) => {
       state.currentCity = action.payload;
     })
+    .addCase(setOffers, (state, action) => {
+      state.offers = action.payload;
+    })
     .addCase(setCurrentSort, (state, action) => {
       state.currentSort = action.payload;
     })
-    .addCase(fetchOffers.pending, (state) => {
-      state.isOffersLoading = true;
+    .addCase(setAuthorizationStatus, (state, action) => {
+      state.authorizationStatus = action.payload;
     })
-    .addCase(fetchOffers.fulfilled, (state, action) => {
-      state.offers = action.payload;
-      state.isOffersLoading = false;
+    .addCase(setOffersLoading, (state, action) => {
+      state.isOffersLoading = action.payload;
     })
-    .addCase(fetchOffer.pending, (state) => {
-      state.isOfferLoading = true;
+    .addCase(setUserProfile, (state, action) => {
+      state.userProfile = action.payload;
     })
-    .addCase(fetchOffer.fulfilled, (state, action) => {
+    .addCase(setOffer, (state, action) => {
       state.offer = action.payload;
-      state.isOfferLoading = false;
     })
-    .addCase(fetchOffer.rejected, (state) => {
-      state.isOfferLoading = false;
+    .addCase(setReviews, (state, action) => {
+      state.reviews = action.payload;
     })
-    .addCase(fetchNearPlaceOffers.fulfilled, (state, action) => {
+    .addCase(appendReview, (state, action) => {
+      state.reviews = [...state.reviews, action.payload];
+    })
+    .addCase(appendFavoriteOffer, (state, action) => {
+      state.favoriteOffers = [...state.favoriteOffers, action.payload];
+      setIsFavoriteState(state.offers, action.payload);
+    })
+    .addCase(deleteFavoriteOffer, (state, action) => {
+      state.favoriteOffers = state.favoriteOffers.filter(
+        (offer) => offer.id !== action.payload.id
+      );
+      setIsFavoriteState(state.offers, action.payload);
+    })
+    .addCase(setNearbyOffers, (state, action) => {
       state.nearPlaceOffers = action.payload;
     })
-    .addCase(fetchComments.fulfilled, (state, action) => {
-      state.comments = action.payload;
+    .addCase(setFavoriteOffers, (state, action) => {
+      state.favoriteOffers = action.payload;
+      state.favoriteOffers.map((favoriteOffer) => {
+        setIsFavoriteState(state.offers, favoriteOffer);
+      });
     })
-    .addCase(fetchUserStatus.fulfilled, (state, action) => {
-      state.user = action.payload.email;
-      state.authorizationStatus = AuthorizationStatus.Auth;
+    .addCase(clearFavoritesOffers, (state) => {
+      state.offers.map((offer) => (offer.isFavorite = false));
+      state.nearPlaceOffers.map((offer) => (offer.isFavorite = false));
+      if (state.offer) {
+        state.offer.isFavorite = false;
+      }
+      state.favoriteOffers = [];
     })
-    .addCase(fetchUserStatus.rejected, (state) => {
-      state.authorizationStatus = AuthorizationStatus.NoAuth;
-    })
-    .addCase(loginUser.fulfilled, (state, action) => {
-      state.user = action.payload;
-      state.authorizationStatus = AuthorizationStatus.Auth;
-    })
-    .addCase(postComment.fulfilled, (state, action) => {
-      state.comments = action.payload;
+    .addCase(setResponseStatus, (state, action) => {
+      state.responseStatus = action.payload;
     });
 });
+
+export { reducer };

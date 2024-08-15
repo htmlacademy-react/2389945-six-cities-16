@@ -1,76 +1,45 @@
-import { useParams } from 'react-router-dom';
+import classNames from 'classnames';
 import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
-import { ReviewForm } from '../review-form/review-form';
-import { Map } from '../map/map';
-//import { PlaceCard } from '../place-card/place-card';
-
-//import { OfferInfoType } from '../../lib/types';
-//import { OFFERS } from '../../mocks/offers';
-//import { REVIEWS } from '../../mocks/reviews';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { fetchOffer, fetchNearPlaceOffers, fetchComments, postComment } from '../../store/action';
+import FavoriteButton from './favorite-button';
 import { Spinner } from '../spinner/spinner';
-import { CommentAuth } from '../../lib/types';
-
 import { NearPlaces } from '../near-places/near-places';
+import { ReviewForm } from '../review-form/review-form';
+import { NotFound404 } from '../not-found-404/not-found-404';
 import { PlaceRating } from '../place-rating/place-rating';
-import { ReviewList } from '../review-list/review-list';
+import { Map } from '../map/map';
 
-/*
-type OfferProps = {
-  offer: OfferInfoType;
-};
-*/
+import {
+  fetchNearbyOfferAction,
+  fetchOfferDetailAction,
+} from '../../store/api-actions';
 
-export const Offer = (): JSX.Element => { const params = useParams();
+export const Offer = (): JSX.Element => {
+  const { id } = useParams();
+
   const dispatch = useAppDispatch();
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-  const isOfferLoading = useAppSelector((state) => state.isOfferLoading);
-  const offer = useAppSelector((state) => state.offer);
-  const nearPlaceOffers = useAppSelector((state) => state.nearPlaceOffers);
-  const comments = useAppSelector((state) => state.comments);
 
   useEffect(() => {
-    const { id } = params;
-    if (id) {
-      const parsedId = Number(id);
-      dispatch(fetchOffer(parsedId));
-      dispatch(fetchNearbyOffers(parsedId));
-      dispatch(fetchComments(parsedId));
-    }
-  }, [params, dispatch]);
+    dispatch(fetchOfferDetailAction({ id }));
+    dispatch(fetchNearbyOfferAction({ id }));
+  }, [dispatch, id]);
 
-  if (!offer) {
-    return null;
+  const nearPlaceOffers = useAppSelector((state) =>
+    state.nearPlaceOffers.slice(0, 3)
+  );
+  const offer = useAppSelector((state) => state.offer);
+
+  if (!id) {
+    return <NotFound404 />;
   }
 
-  if (isOfferLoading) {
-    return <Spinner />;
-  }
-
-  const { id, images, isPremium, title, rating, type, bedrooms, maxAdults, price, goods, host, description, city, location } = offer;
-
-  const locations = nearPlaceOffers.map(({ id: nearbyId, location: nearbyLocation, }) => ({ id: nearbyId, ...nearbyLocation }));
-  locations.push({ id, ...location });
-
-  const onFormSubmit = (formData: Omit<CommentAuth, 'id'>) => {
-    dispatch(postComment({ id, ...formData }));
-  };
-
-
-  /*
-  const nearPlaceOffers = OFFERS.filter(
-    (nearbyOffer) =>
-      nearbyOffer.city.name === offer.city.name && nearbyOffer.id !== offer.id
-  ).slice(1, 4);
-*/
-
-  return (
+  return offer ? (
     <section className="offer">
       <div className="offer__gallery-container container">
         <div className="offer__gallery">
-          {images.map((image, index) => {
+          {offer.images.slice(0, 6).map((image, index) => {
             const keyValue = `${index}-image`;
             return (
               <div className="offer__image-wrapper" key={keyValue}>
@@ -89,19 +58,15 @@ export const Offer = (): JSX.Element => { const params = useParams();
           )}
           <div className="offer__name-wrapper">
             <h1 className="offer__name">{offer.title}</h1>
-            <button
-              className={'offer__bookmark-button button'.concat(
-                offer.isFavorite ? ' offer__bookmark-button--active' : ' '
-              )}
-              type="button"
+            <FavoriteButton
+              baseClass="offer"
+              isFavorite={offer.isFavorite}
+              id={offer.id}
             >
               <svg className="offer__bookmark-icon" width="31" height="33">
                 <use xlinkHref="#icon-bookmark"></use>
               </svg>
-              <span className="visually-hidden">
-                {offer.isFavorite ? 'In bookmarks' : 'To bookmarks'}
-              </span>
-            </button>
+            </FavoriteButton>
           </div>
           <div className="offer__rating rating">
             <PlaceRating place="offer" rating={offer.rating}>
@@ -138,7 +103,15 @@ export const Offer = (): JSX.Element => { const params = useParams();
           <div className="offer__host">
             <h2 className="offer__host-title">{offer.title}</h2>
             <div className="offer__host-user user">
-              <div className="offer__avatar-wrapper offer__avatar-wrapper--pro user__avatar-wrapper">
+              <div
+                className={classNames(
+                  'offer__avatar-wrapper',
+                  'user__avatar-wrapper',
+                  {
+                    'offer__avatar-wrapper--pro': offer.host.isPro,
+                  }
+                )}
+              >
                 <img
                   className="offer__avatar user__avatar"
                   src={offer.host.avatarUrl}
@@ -156,20 +129,25 @@ export const Offer = (): JSX.Element => { const params = useParams();
               <p className="offer__text">{offer.description}</p>
             </div>
           </div>
-          <section className="offer__reviews reviews">
-            <h2 className="reviews__title">
-              Reviews ·{' '}
-              <span className="reviews__amount">{REVIEWS.length}</span>
-            </h2>
-            <ReviewList reviews={REVIEWS} />
-            <ReviewForm />
-          </section>
+          <ReviewForm />
         </div>
       </div>
-      <Map offers={nearPlaceOffers} city={offer.city} place="offer" />
-      <div className="container">
-        <NearPlaces offers={nearPlaceOffers} />
-      </div>
+
+      {nearPlaceOffers && (
+        <>
+          <Map
+            currentOffer={offer}
+            offers={[offer, ...nearPlaceOffers]}
+            city={offer.city}
+            place="offer"
+          />
+          <div className="container">
+            <NearPlaces offers={nearPlaceOffers} />
+          </div>
+        </>
+      )}
     </section>
+  ) : (
+    <Spinner />
   );
 };

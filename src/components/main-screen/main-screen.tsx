@@ -1,13 +1,13 @@
 import { Map } from '../map/map';
 import { useState } from 'react';
 import { useAppSelector } from '../../hooks';
-import { OfferInfoType } from '../../lib/types';
+import { OfferType } from '../../lib/types';
 import { CityList } from '../../const';
 import { Cities } from '../cities/cities';
 import { PlaceCardList } from '../place-card-list/place-card-list';
 
 export const MainScreen = (): JSX.Element => {
-  const [currentOffer, setCurrentOffer] = useState<OfferInfoType | null>(null);
+  const [currentOffer, setCurrentOffer] = useState<OfferType | null>(null);
 
   const currentCity = useAppSelector((state) => state.currentCity);
   const offers = useAppSelector((state) => state.offers);
@@ -41,6 +41,7 @@ export const MainScreen = (): JSX.Element => {
               offers={cityOffers}
               city={currentCity}
               currentOffer={currentOffer}
+              place="cities"
             />
           </div>
         </div>

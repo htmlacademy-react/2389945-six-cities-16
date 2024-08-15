@@ -1,4 +1,4 @@
-import { CityType, RateType, SortNameType, OfferInfoType } from './lib/types';
+import { CityType, RateType, SortNameType, OfferType } from './lib/types';
 
 export const DEFAULT_MARKER_URL =
   '../public/img/pin.svg';
@@ -12,15 +12,6 @@ export const OffersSettings = {
   reviewText: { minLength: 50, maxLength: 300 },
 };
 
-/*
-export const AppRoute = {
-  Root: '/',
-  Login: '/login',
-  Favorites: '/favorites',
-  Offer: '/offer/:id',
-};
-*/
-
 export enum AppRoute {
   Root = '/',
   Login = '/login',
@@ -32,6 +23,7 @@ export enum AppRoute {
 export enum ApiRoute {
   Offers = '/offers',
   Login = '/login',
+  Logout = '/logout',
   Comments = '/comments',
   Favorite = '/favorite'
 }
@@ -133,7 +125,7 @@ export enum SortingList {
 }
 
 export const CompareSortValues: {
-  [key in SortNameType]: (valueOne: OfferInfoType, valueTwo: OfferInfoType) => number
+  [key in SortNameType]: (valueOne: OfferType, valueTwo: OfferType) => number
 } = {
   Popular: () => 0,
   PriceIncrease: (valueOne, valueTwo) => valueOne.price - valueTwo.price,

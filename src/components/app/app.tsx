@@ -1,9 +1,4 @@
-import {
-  unstable_HistoryRouter as HistoryRouter,
-  Routes,
-  Route,
-} from 'react-router-dom';
-
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Header } from '../header/header';
 import { MainScreen } from '../main-screen/main-screen';
 import { Login } from '../login/login';
@@ -13,8 +8,6 @@ import { PrivateRoute } from '../private-route/private-route';
 import { Favorites } from '../favorites/favorites';
 import { AppRoute, AuthorizationStatus } from '../../const';
 
-import { history } from '../../history';
-
 //import { OFFERS } from '../../mocks/offers';
 //import { OFFER_INFO } from '../../mocks/offer-info';
 //import { useAppDispatch } from '../../hooks';
@@ -22,7 +15,7 @@ import { history } from '../../history';
 //import type { BrowserHistory } from 'history';
 
 export const App = (): JSX.Element => (
-  <HistoryRouter history={history}>
+  <BrowserRouter>
     <Routes>
       <Route
         path={AppRoute.Root}
@@ -42,5 +35,5 @@ export const App = (): JSX.Element => (
         <Route path="*" element={<NotFound404 />} />
       </Route>
     </Routes>
-  </HistoryRouter>
+  </BrowserRouter>
 );

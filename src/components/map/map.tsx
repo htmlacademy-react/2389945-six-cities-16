@@ -1,15 +1,21 @@
 import { Icon, layerGroup, Marker } from 'leaflet';
-import 'leaflet/dist/leaflet.css';
 import { useEffect, useRef } from 'react';
-import { CityType, OfferInfoType } from '../../lib/types';
-import { useMap } from '../../hooks/use-map';
 import { DEFAULT_MARKER_URL, CURRENT_MARKER_URL } from '../../const';
+import { useMap } from '../../hooks/use-map';
+import {
+  CityType,
+  OfferInfoType,
+  OfferType,
+  OfferLocationType,
+} from '../../lib/types';
+
+import 'leaflet/dist/leaflet.css';
 
 type MapProps = {
-  city: CityType | null;
-  offers: OfferInfoType[];
-  currentOffer?: OfferInfoType | null;
-  place?: 'cities' | 'offer';
+  city: CityType;
+  offers: OfferLocationType[];
+  currentOffer: OfferType | OfferInfoType | null;
+  place: string;
 };
 
 type IconOptionsType = {
@@ -32,13 +38,13 @@ const currentCustomIcon = new Icon({
 });
 
 export const Map = (props: MapProps): JSX.Element => {
-  const { city, offers, currentOffer, place = 'cities' } = props;
+  const { city, offers, currentOffer, place } = props;
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
   useEffect(() => {
     if (map && city) {
-      map.setView(
+      map.flyTo(
         [city.location.latitude, city.location.longitude],
         city.location.zoom
       );
@@ -49,18 +55,20 @@ export const Map = (props: MapProps): JSX.Element => {
     if (map) {
       const markerLayer = layerGroup().addTo(map);
       offers.forEach((offer) => {
-        const marker = new Marker({
-          lat: offer.location.latitude,
-          lng: offer.location.longitude,
-        });
+        const marker = new Marker(
+          {
+            lat: offer.location.latitude,
+            lng: offer.location.longitude,
+          },
+          {
+            icon:
+              currentOffer && offer.id === currentOffer?.id
+                ? currentCustomIcon
+                : defaultCustomIcon,
+          }
+        );
 
-        marker
-          .setIcon(
-            currentOffer !== undefined && offer.title === currentOffer?.title
-              ? currentCustomIcon
-              : defaultCustomIcon
-          )
-          .addTo(markerLayer);
+        marker.addTo(markerLayer);
       });
 
       return () => {
