@@ -56,10 +56,6 @@ export type OfferInfoType = {
   maxAdults: number;
 };
 
-export type AppProps = {
-  offers: OfferType[];
-};
-
 export type HeaderProps = {
   authorizationStatus: AuthorizationStatus;
 };

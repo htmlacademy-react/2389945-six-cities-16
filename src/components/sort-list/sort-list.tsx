@@ -4,7 +4,8 @@ import { SortingList } from '../../const';
 
 type SortListProps = {
   onChange: (name: SortNameType) => void;
-  activeSort: SortNameType;
+  //activeSort: SortNameType;
+  activeSort: SortingList;
 };
 
 export const SortList = ({
@@ -30,7 +31,7 @@ export const SortList = ({
         tabIndex={0}
         onClick={handleOpenButtonClick}
       >
-        {SortingList[activeSort]}
+        {activeSort}
         <svg className="places__sorting-arrow" width="7" height="4">
           <use xlinkHref="#icon-arrow-select"></use>
         </svg>

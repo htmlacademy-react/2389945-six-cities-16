@@ -1,4 +1,4 @@
-import { CityType, RateType, SortNameType, OfferType } from './lib/types';
+import { CityType, RateType, OfferType } from './lib/types';
 
 export const DEFAULT_MARKER_URL =
   '../public/img/pin.svg';
@@ -124,6 +124,7 @@ export enum SortingList {
   TopRated = 'Top rated first',
 }
 
+/*
 export const CompareSortValues: {
   [key in SortNameType]: (valueOne: OfferType, valueTwo: OfferType) => number
 } = {
@@ -131,6 +132,32 @@ export const CompareSortValues: {
   PriceIncrease: (valueOne, valueTwo) => valueOne.price - valueTwo.price,
   PriceDecrease: (valueOne, valueTwo) => valueTwo.price - valueOne.price,
   TopRated: (valueOne, valueTwo) => valueTwo.rating - valueOne.rating,
+};
+*/
+
+export const fnCompareSortValues = (key: SortingList, valueOne: OfferType, valueTwo: OfferType) => {
+
+  if (key === SortingList.Popular) {
+    return 0;
+  } else
+    if (key === SortingList.PriceIncrease) {
+      return valueOne.price - valueTwo.price;
+    } else
+      if (key === SortingList.PriceDecrease) {
+        return valueTwo.price - valueOne.price;
+      } else
+        if (key === SortingList.TopRated) {
+          return valueTwo.rating - valueOne.rating;
+        } else {
+          return 0;
+        }
+
+  /*
+    Popular: () => 0,
+    PriceIncrease: (valueOne, valueTwo) => valueOne.price - valueTwo.price,
+    PriceDecrease: (valueOne, valueTwo) => valueTwo.price - valueOne.price,
+    TopRated: (valueOne, valueTwo) => valueTwo.rating - valueOne.rating,
+  */
 };
 
 export enum HttpCode {

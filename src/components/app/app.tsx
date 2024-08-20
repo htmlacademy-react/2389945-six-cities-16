@@ -22,7 +22,6 @@ export const App = (): JSX.Element => (
         element={<Header authorizationStatus={AuthorizationStatus.Auth} />}
       >
         <Route index element={<MainScreen />} />
-        <Route path={AppRoute.Login} element={<Login />} />
         <Route path={`${AppRoute.Offer}/:id`} element={<Offer />} />
         <Route
           path={AppRoute.Favorites}
@@ -34,6 +33,7 @@ export const App = (): JSX.Element => (
         />
         <Route path="*" element={<NotFound404 />} />
       </Route>
+      <Route path={AppRoute.Login} element={<Login />} />
     </Routes>
   </BrowserRouter>
 );

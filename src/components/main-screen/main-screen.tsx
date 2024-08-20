@@ -12,6 +12,8 @@ export const MainScreen = (): JSX.Element => {
   const currentCity = useAppSelector((state) => state.currentCity);
   const offers = useAppSelector((state) => state.offers);
 
+  console.log(offers);
+
   const cityOffers = offers.filter(
     (offer) => currentCity.name && offer.city.name === currentCity.name
   );

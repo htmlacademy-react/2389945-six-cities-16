@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import FavoriteButton from './favorite-button';
+import { FavoriteButton } from '../favorite-button/favorite-button';
 import { Spinner } from '../spinner/spinner';
 import { NearPlaces } from '../near-places/near-places';
 import { ReviewForm } from '../review-form/review-form';
