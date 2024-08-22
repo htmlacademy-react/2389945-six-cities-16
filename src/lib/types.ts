@@ -86,3 +86,9 @@ export type AuthInfoType = UserType & {
   token: string;
 };
 
+export type PostReview = {
+  id: string;
+  comment: string;
+  rating: number;
+};
+

@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import { useNavigate } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { postFavoriteOfferAction } from '../../store/api-actions';
+import { postFavorite } from '../../store/api-actions';
 
 type FavoriteButtonProps = {
   baseClass: string;
@@ -30,7 +30,7 @@ export const FavoriteButton = (props: FavoriteButtonProps): JSX.Element => {
     evt.stopPropagation();
 
     dispatch(
-      postFavoriteOfferAction({
+      postFavorite({
         id,
         isFavorite: !isFavorite,
       })
@@ -52,4 +52,3 @@ export const FavoriteButton = (props: FavoriteButtonProps): JSX.Element => {
     </button>
   );
 };
-

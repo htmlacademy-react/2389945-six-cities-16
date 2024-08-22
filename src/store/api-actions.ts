@@ -9,6 +9,7 @@ import {
   OfferInfoType,
   OfferType,
   ReviewType,
+  PostReview
 } from '../lib/types';
 
 import {
@@ -33,20 +34,19 @@ type AsyncThunkPropWithAxios = {
   extra: AxiosInstance;
 };
 
-export const fetchOfferAction = createAsyncThunk<
+export const fetchOffer = createAsyncThunk<
   void,
   undefined,
   AsyncThunkPropWithAxios
 >('fetchOfferAction', async (_arg, { dispatch, extra: api }) => {
   dispatch(setOffersLoading(true));
   const { data } = await api.get<OfferType[]>(ApiRoute.Offers);
-
-  console.log(data);
   dispatch(setOffersLoading(false));
   dispatch(setOffers(data));
 });
 
-export const fetchOfferDetailAction = createAsyncThunk<
+
+export const fetchOfferInfo = createAsyncThunk<
   void,
   { id: string | undefined },
   AsyncThunkPropWithAxios
@@ -65,7 +65,7 @@ export const fetchOfferDetailAction = createAsyncThunk<
   }
 });
 
-export const fetchNearbyOfferAction = createAsyncThunk<
+export const fetchNearPlaceOffers = createAsyncThunk<
   void,
   { id: string | undefined },
   AsyncThunkPropWithAxios
@@ -76,7 +76,7 @@ export const fetchNearbyOfferAction = createAsyncThunk<
   dispatch(setNearPlaceOffers(data));
 });
 
-export const fetchFavoriteOffersAction = createAsyncThunk<
+export const fetchFavorite = createAsyncThunk<
   void,
   undefined,
   AsyncThunkPropWithAxios
@@ -85,7 +85,7 @@ export const fetchFavoriteOffersAction = createAsyncThunk<
   dispatch(setFavoriteOffers(data));
 });
 
-export const postFavoriteOfferAction = createAsyncThunk<
+export const postFavorite = createAsyncThunk<
   void,
   { id: string; isFavorite: boolean },
   AsyncThunkPropWithAxios
@@ -104,7 +104,7 @@ export const postFavoriteOfferAction = createAsyncThunk<
   }
 );
 
-export const checkLoginAction = createAsyncThunk<
+export const checkLogin = createAsyncThunk<
   void,
   undefined,
   AsyncThunkPropWithAxios
@@ -124,7 +124,7 @@ type LoginAuth = {
   password: string;
 };
 
-export const loginAction = createAsyncThunk<
+export const login = createAsyncThunk<
   void,
   LoginAuth,
   AsyncThunkPropWithAxios
@@ -144,7 +144,7 @@ export const loginAction = createAsyncThunk<
   }
 });
 
-export const logoutAction = createAsyncThunk<
+export const logout = createAsyncThunk<
   void,
   undefined,
   AsyncThunkPropWithAxios
@@ -156,7 +156,7 @@ export const logoutAction = createAsyncThunk<
   dispatch(setUserProfile(null));
 });
 
-export const fetchReviewAction = createAsyncThunk<
+export const fetchReview = createAsyncThunk<
   void,
   { id: string | undefined },
   AsyncThunkPropWithAxios
@@ -165,13 +165,7 @@ export const fetchReviewAction = createAsyncThunk<
   dispatch(setReviews(data));
 });
 
-export type PostReview = {
-  id: string;
-  comment: string;
-  rating: number;
-};
-
-export const PostReviewAction = createAsyncThunk<
+export const postReview = createAsyncThunk<
   void,
   PostReview,
   AsyncThunkPropWithAxios

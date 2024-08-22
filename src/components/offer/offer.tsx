@@ -11,10 +11,7 @@ import { NotFound404 } from '../not-found-404/not-found-404';
 import { PlaceRating } from '../place-rating/place-rating';
 import { Map } from '../map/map';
 
-import {
-  fetchNearbyOfferAction,
-  fetchOfferDetailAction,
-} from '../../store/api-actions';
+import { fetchNearPlaceOffers, fetchOfferInfo } from '../../store/api-actions';
 
 export const Offer = (): JSX.Element => {
   const { id } = useParams();
@@ -22,8 +19,8 @@ export const Offer = (): JSX.Element => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchOfferDetailAction({ id }));
-    dispatch(fetchNearbyOfferAction({ id }));
+    dispatch(fetchOfferInfo({ id }));
+    dispatch(fetchNearPlaceOffers({ id }));
   }, [dispatch, id]);
 
   const nearPlaceOffers = useAppSelector((state) =>
