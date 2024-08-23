@@ -3,7 +3,7 @@ import { OfferType, SortNameType } from '../../lib/types';
 import { SortList } from '../sort-list/sort-list';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { setCurrentSort } from '../../store/action';
-//import { fnCompareSortValues } from '../../const';
+import { CompareSortValues } from '../../const';
 import { Spinner } from '../spinner/spinner';
 
 type PlaceCardListProps = {
@@ -12,23 +12,14 @@ type PlaceCardListProps = {
 };
 
 export const PlaceCardList = (props: PlaceCardListProps): JSX.Element => {
-  const { offers, onSelectedOfferChange } = props;
-  /*
+  const { onSelectedOfferChange } = props;
   const offers = useAppSelector((state) =>
-    //console.log(state.offers);
     state.offers
       .filter((offer) => offer.city.name === state.currentCity.name)
-      .sort((valueOne, valueTwo) =>
-        fnCompareSortValues(state.currentSort, valueOne, valueTwo)
-      )
+      .sort(CompareSortValues[state.currentSort])
   );
-  */
-
-  console.log(offers);
-
   const activeSort = useAppSelector((state) => state.currentSort);
   const dispatch = useAppDispatch();
-
   const onSortingChange = (name: SortNameType) => {
     dispatch(setCurrentSort(name));
   };

@@ -1,12 +1,13 @@
 import { createAction, PrepareAction } from '@reduxjs/toolkit';
 import { StatusCodes } from 'http-status-codes';
-import { AppRoute, AuthorizationStatus, SortingList } from '../const';
+import { AppRoute, AuthorizationStatus } from '../const';
 import {
   AuthInfoType,
   CityType,
   OfferInfoType,
   OfferType,
   ReviewType,
+  SortNameType,
 } from '../lib/types';
 
 export const setCurrentCity = createAction<PrepareAction<CityType>>(
@@ -56,9 +57,9 @@ export const appendReview = createAction<PrepareAction<ReviewType>>(
   (review: ReviewType) => ({ payload: review })
 );
 
-export const setCurrentSort = createAction<PrepareAction<SortingList>>(
+export const setCurrentSort = createAction<PrepareAction<SortNameType>>(
   'setCurrentSort',
-  (sort: SortingList) => ({ payload: sort })
+  (sort: SortNameType) => ({ payload: sort })
 );
 
 export const setAuthorizationStatus = createAction<

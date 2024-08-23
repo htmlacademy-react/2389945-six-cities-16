@@ -1,6 +1,7 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { StatusCodes } from 'http-status-codes';
-import { AuthorizationStatus, CityInfo, SortingList } from '../const';
+import { AuthorizationStatus, CityInfo } from '../const';
+import { SortNameType } from '../lib/types';
 
 import {
   appendFavoriteOffer,
@@ -35,7 +36,7 @@ type InitialState = {
   reviews: ReviewType[] | [];
   currentCity: CityType;
   favoriteOffers: OfferType[];
-  currentSort: SortingList;
+  currentSort: SortNameType;
   authorizationStatus: AuthorizationStatus;
   userProfile: AuthInfoType | null;
   isOffersLoading: boolean;
@@ -49,7 +50,7 @@ const initialState: InitialState = {
   reviews: [],
   currentCity: CityInfo[0],
   favoriteOffers: [],
-  currentSort: SortingList.Popular,
+  currentSort: 'Popular',
   authorizationStatus: AuthorizationStatus.Unknown,
   userProfile: null,
   isOffersLoading: false,

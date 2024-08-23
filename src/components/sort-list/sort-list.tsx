@@ -4,8 +4,7 @@ import { SortingList } from '../../const';
 
 type SortListProps = {
   onChange: (name: SortNameType) => void;
-  //activeSort: SortNameType;
-  activeSort: SortingList;
+  activeSort: SortNameType;
 };
 
 export const SortList = ({
