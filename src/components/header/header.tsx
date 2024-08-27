@@ -2,11 +2,28 @@ import { Link } from 'react-router-dom';
 import { LoggedOn } from '../logged-on/logged-on';
 import { Outlet, useLocation } from 'react-router-dom';
 import { AppRoute } from '../../const';
-import { HeaderProps } from '../../lib/types';
+//import { HeaderProps } from '../../lib/types';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useEffect } from 'react';
+import { AuthorizationStatus } from '../../const';
+import { fetchFavorite } from '../../store/api-actions';
 
-export const Header = ({ authorizationStatus }: HeaderProps): JSX.Element => {
+
+export const Header = (): JSX.Element => {
+
+  const dispatch = useAppDispatch();
+  const authorizationStatus = useAppSelector(
+    (state) => state.authorizationStatus
+  );
+
+  useEffect(() => {
+    if (authorizationStatus === AuthorizationStatus.Auth) {
+      dispatch(fetchFavorite());
+    }
+  }, [dispatch, authorizationStatus]);
+
   const { pathname } = useLocation();
-  const isLoggedOn = pathname === AppRoute.Login;
+  const isLoggedOn = pathname === String(AppRoute.Login);
   return (
     <div className="page page--gray page--main">
       <header className="header">

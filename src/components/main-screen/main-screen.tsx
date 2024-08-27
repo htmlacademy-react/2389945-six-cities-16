@@ -1,20 +1,13 @@
 import { Map } from '../map/map';
-import { useState, useEffect } from 'react';
-import { useAppSelector, useAppDispatch } from '../../hooks';
+import { useState } from 'react';
+import { useAppSelector } from '../../hooks';
 import { OfferType } from '../../lib/types';
 import { CityList } from '../../const';
 import { Cities } from '../cities/cities';
 import { PlaceCardList } from '../place-card-list/place-card-list';
-import { fetchOffer, checkLogin } from '../../store/api-actions';
 
 export const MainScreen = (): JSX.Element => {
   const [currentOffer, setCurrentOffer] = useState<OfferType | null>(null);
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    dispatch(fetchOffer());
-    dispatch(checkLogin());
-  }, [dispatch]);
 
   const currentCity = useAppSelector((state) => state.currentCity);
   const offers = useAppSelector((state) => state.offers);

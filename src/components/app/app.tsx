@@ -7,6 +7,9 @@ import { NotFound404 } from '../not-found-404/not-found-404';
 import { PrivateRoute } from '../private-route/private-route';
 import { Favorites } from '../favorites/favorites';
 import { AppRoute, AuthorizationStatus } from '../../const';
+import { Spinner } from '../spinner/spinner';
+import { useAppSelector } from '../../hooks';
+import { StatusCodes } from 'http-status-codes';
 
 //import { OFFERS } from '../../mocks/offers';
 //import { OFFER_INFO } from '../../mocks/offer-info';
@@ -14,26 +17,42 @@ import { AppRoute, AuthorizationStatus } from '../../const';
 //import { setOffers } from '../../store/action';
 //import type { BrowserHistory } from 'history';
 
-export const App = (): JSX.Element => (
-  <BrowserRouter>
-    <Routes>
-      <Route
-        path={AppRoute.Root}
-        element={<Header authorizationStatus={AuthorizationStatus.Auth} />}
-      >
-        <Route index element={<MainScreen />} />
-        <Route path={`${AppRoute.Offer}/:id`} element={<Offer />} />
+export const App = (): JSX.Element => {
+  const isOffersLoading = useAppSelector((state) => state.isOffersLoading);
+  const responseStatus = useAppSelector((state) => state.responseStatus);
+  const authorizationStatus = useAppSelector(
+    (state) => state.authorizationStatus
+  );
+
+  if (responseStatus === StatusCodes.NOT_FOUND) {
+    return <NotFound404 />;
+  }
+
+  if (isOffersLoading || authorizationStatus === AuthorizationStatus.Unknown) {
+    return <Spinner />;
+  }
+
+  return (
+    <BrowserRouter>
+      <Routes>
         <Route
-          path={AppRoute.Favorites}
-          element={
-            <PrivateRoute>
-              <Favorites />
-            </PrivateRoute>
-          }
-        />
-        <Route path="*" element={<NotFound404 />} />
-      </Route>
-      <Route path={AppRoute.Login} element={<Login />} />
-    </Routes>
-  </BrowserRouter>
-);
+          path={AppRoute.Root}
+          element={<Header />}
+        >
+          <Route index element={<MainScreen />} />
+          <Route path={`${AppRoute.Offer}/:id`} element={<Offer />} />
+          <Route
+            path={AppRoute.Favorites}
+            element={
+              <PrivateRoute>
+                <Favorites />
+              </PrivateRoute>
+            }
+          />
+          <Route path="*" element={<NotFound404 />} />
+        </Route>
+        <Route path={AppRoute.Login} element={<Login />} />
+      </Routes>
+    </BrowserRouter>
+  );
+};
