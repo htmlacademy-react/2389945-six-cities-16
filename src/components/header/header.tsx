@@ -44,7 +44,7 @@ export const Header = (): JSX.Element => {
               </Link>
             </div>
             {!isLoggedOn && (
-              <LoggedOn authorizationStatus={authorizationStatus} />
+              <LoggedOn />
             )}
           </div>
         </div>
