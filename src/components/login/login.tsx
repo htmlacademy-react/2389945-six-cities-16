@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
-import { useRef } from 'react';
+import { FormEvent, useRef } from 'react';
 import { useAppDispatch } from '../../hooks';
 import { login } from '../../store/api-actions';
 
@@ -9,7 +9,8 @@ export const Login = (): JSX.Element => {
   const passwordRef = useRef<HTMLInputElement | null>(null);
   const dispatch = useAppDispatch();
 
-  const onFormSubmit = () => {
+  const onFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
 
     if (emailRef.current !== null && passwordRef.current !== null) {
       //console.log('123');
