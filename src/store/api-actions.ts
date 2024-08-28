@@ -3,6 +3,7 @@ import { AxiosError, AxiosInstance } from 'axios';
 import { ApiRoute, AuthorizationStatus } from '../const';
 import { dropToken, setToken } from '../services/token';
 import { AppDispatch, State } from '../lib/state';
+//import { useNavigate } from 'react-router-dom';
 
 import {
   AuthInfoType,
@@ -134,11 +135,20 @@ export const login = createAsyncThunk<
     password: password,
   };
 
+  //const navigate = useNavigate();
+
+  //console.log('123');
+
   try {
     const { data } = await api.post<AuthInfoType>(ApiRoute.Login, requestBody);
     setToken(data.token);
     dispatch(setAuthorizationStatus(AuthorizationStatus.Auth));
     dispatch(setUserProfile(data));
+    //dispatch(fetchFavorite());
+
+    //console.log('123');
+    //dispatch(redirectToRoute(AppRoute.Root));
+    //navigate(AppRoute.Root);
   } catch (error) {
     dispatch(setAuthorizationStatus(AuthorizationStatus.NoAuth));
   }

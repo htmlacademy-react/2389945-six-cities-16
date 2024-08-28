@@ -1,19 +1,22 @@
 import { Link } from 'react-router-dom';
-import { AppRoute } from '../../const';
+import { AppRoute, CityInfo } from '../../const';
 import { FormEvent, useRef } from 'react';
 import { useAppDispatch } from '../../hooks';
 import { login } from '../../store/api-actions';
+import { setCurrentCity } from '../../store/action';
+import { getRandomArrayElement } from './utils';
 
 export const Login = (): JSX.Element => {
   const emailRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
   const dispatch = useAppDispatch();
 
+  const randomCity = getRandomArrayElement(CityInfo);
+
   const onFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
     if (emailRef.current !== null && passwordRef.current !== null) {
-      //console.log('123');
       dispatch(
         login({
           email: emailRef.current.value,
@@ -84,10 +87,17 @@ export const Login = (): JSX.Element => {
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <a className="locations__item-link" href="#">
-                <span>Amsterdam</span>
-              </a>
+              <Link
+                className="locations__item-link"
+                to={AppRoute.Root}
+                onClick={() => {
+                  dispatch(setCurrentCity(randomCity));
+                }}
+              >
+                <span>{randomCity.name}</span>
+              </Link>
             </div>
+            t
           </section>
         </div>
       </main>
