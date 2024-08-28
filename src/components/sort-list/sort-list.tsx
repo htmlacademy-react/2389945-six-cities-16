@@ -30,7 +30,7 @@ export const SortList = ({
         tabIndex={0}
         onClick={handleOpenButtonClick}
       >
-        {SortingList[activeSort]}
+        {activeSort}
         <svg className="places__sorting-arrow" width="7" height="4">
           <use xlinkHref="#icon-arrow-select"></use>
         </svg>

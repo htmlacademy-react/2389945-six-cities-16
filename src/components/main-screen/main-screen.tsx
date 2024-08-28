@@ -41,6 +41,7 @@ export const MainScreen = (): JSX.Element => {
               offers={cityOffers}
               city={currentCity}
               currentOffer={currentOffer}
+              place="cities"
             />
           </div>
         </div>

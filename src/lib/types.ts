@@ -7,6 +7,11 @@ export type LocationType = {
   zoom: number;
 };
 
+export type OfferLocationType = {
+  id: string;
+  location: LocationType;
+};
+
 export type CityType = {
   name: string;
   location: LocationType;
@@ -33,12 +38,6 @@ export type ReviewType = {
   rating: number;
 };
 
-export type UserType = {
-  name: string;
-  avatarUrl: string;
-  isPro: boolean;
-};
-
 export type OfferInfoType = {
   id: string;
   title: string;
@@ -57,10 +56,6 @@ export type OfferInfoType = {
   maxAdults: number;
 };
 
-export type AppProps = {
-  offers: OfferType[];
-};
-
 export type HeaderProps = {
   authorizationStatus: AuthorizationStatus;
 };
@@ -71,4 +66,29 @@ export type RateType = {
 };
 
 export type SortNameType = keyof typeof SortingList;
+
+export type UserType = {
+  name: string;
+  avatarUrl: string;
+  isPro: boolean;
+};
+
+export type CommentType = {
+  id: number;
+  comment: string;
+  date: string;
+  rating: number;
+  user: UserType;
+};
+
+export type AuthInfoType = UserType & {
+  email: string;
+  token: string;
+};
+
+export type PostReview = {
+  id: string;
+  comment: string;
+  rating: number;
+};
 

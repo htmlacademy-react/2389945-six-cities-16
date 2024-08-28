@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { Header } from '../header/header';
 import { MainScreen } from '../main-screen/main-screen';
 import { Login } from '../login/login';
@@ -7,39 +7,54 @@ import { NotFound404 } from '../not-found-404/not-found-404';
 import { PrivateRoute } from '../private-route/private-route';
 import { Favorites } from '../favorites/favorites';
 import { AppRoute, AuthorizationStatus } from '../../const';
-import { OFFERS } from '../../mocks/offers';
-import { OFFER_INFO } from '../../mocks/offer-info';
-import { useAppDispatch } from '../../hooks';
-import { setOffers } from '../../store/action';
+import { Spinner } from '../spinner/spinner';
+import { useAppSelector } from '../../hooks';
+import { StatusCodes } from 'http-status-codes';
+import { HistoryRouter } from '../history-router/history-router';
+
+//import { OFFERS } from '../../mocks/offers';
+//import { OFFER_INFO } from '../../mocks/offer-info';
+//import { useAppDispatch } from '../../hooks';
+//import { setOffers } from '../../store/action';
+import { createBrowserHistory } from 'history';
+const browserHistory = createBrowserHistory();
 
 export const App = (): JSX.Element => {
-  const dispatch = useAppDispatch();
-  dispatch(setOffers(OFFERS));
+  const isOffersLoading = useAppSelector((state) => state.isOffersLoading);
+  const responseStatus = useAppSelector((state) => state.responseStatus);
+  const authorizationStatus = useAppSelector(
+    (state) => state.authorizationStatus
+  );
+
+  if (responseStatus === StatusCodes.NOT_FOUND) {
+    return <NotFound404 />;
+  }
+
+  if (isOffersLoading || authorizationStatus === AuthorizationStatus.Unknown) {
+    return <Spinner />;
+  }
 
   return (
-    <BrowserRouter>
+    <HistoryRouter history={browserHistory}>
       <Routes>
         <Route
           path={AppRoute.Root}
-          element={<Header authorizationStatus={AuthorizationStatus.Auth} />}
+          element={<Header />}
         >
           <Route index element={<MainScreen />} />
-          <Route path={AppRoute.Login} element={<Login />} />
+          <Route path={`${AppRoute.Offer}/:id`} element={<Offer />} />
           <Route
             path={AppRoute.Favorites}
             element={
-              <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
+              <PrivateRoute>
                 <Favorites />
               </PrivateRoute>
             }
           />
-          <Route
-            path={`${AppRoute.Offer}/:id`}
-            element={<Offer offer={OFFER_INFO} />}
-          />
+          <Route path="*" element={<NotFound404 />} />
         </Route>
-        <Route path="*" element={<NotFound404 />} />
+        <Route path={AppRoute.Login} element={<Login />} />
       </Routes>
-    </BrowserRouter>
+    </HistoryRouter>
   );
 };

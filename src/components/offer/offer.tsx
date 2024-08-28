@@ -1,29 +1,42 @@
-import { ReviewForm } from '../review-form/review-form';
-import { Map } from '../map/map';
-import { OfferInfoType } from '../../lib/types';
-import { OFFERS } from '../../mocks/offers';
-import { REVIEWS } from '../../mocks/reviews';
+import classNames from 'classnames';
+import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { FavoriteButton } from '../favorite-button/favorite-button';
+import { Spinner } from '../spinner/spinner';
 import { NearPlaces } from '../near-places/near-places';
+import { ReviewForm } from '../review-form/review-form';
+import { NotFound404 } from '../not-found-404/not-found-404';
 import { PlaceRating } from '../place-rating/place-rating';
-import { ReviewList } from '../review-list/review-list';
+import { Map } from '../map/map';
 
-type OfferProps = {
-  offer: OfferInfoType;
-};
+import { fetchNearPlaceOffers, fetchOfferInfo } from '../../store/api-actions';
 
-export const Offer = (props: OfferProps): JSX.Element => {
-  const { offer } = props;
+export const Offer = (): JSX.Element => {
+  const { id } = useParams();
 
-  const nearPlaceOffers = OFFERS.filter(
-    (nearbyOffer) =>
-      nearbyOffer.city.name === offer.city.name && nearbyOffer.id !== offer.id
-  ).slice(1, 4);
+  const dispatch = useAppDispatch();
 
-  return (
+  useEffect(() => {
+    dispatch(fetchOfferInfo({ id }));
+    dispatch(fetchNearPlaceOffers({ id }));
+  }, [dispatch, id]);
+
+  const nearPlaceOffers = useAppSelector((state) =>
+    state.nearPlaceOffers.slice(0, 3)
+  );
+  const offer = useAppSelector((state) => state.offer);
+
+  if (!id) {
+    return <NotFound404 />;
+  }
+
+  return offer ? (
     <section className="offer">
       <div className="offer__gallery-container container">
         <div className="offer__gallery">
-          {offer.images.map((image, index) => {
+          {offer.images.slice(0, 6).map((image, index) => {
             const keyValue = `${index}-image`;
             return (
               <div className="offer__image-wrapper" key={keyValue}>
@@ -42,19 +55,15 @@ export const Offer = (props: OfferProps): JSX.Element => {
           )}
           <div className="offer__name-wrapper">
             <h1 className="offer__name">{offer.title}</h1>
-            <button
-              className={'offer__bookmark-button button'.concat(
-                offer.isFavorite ? ' offer__bookmark-button--active' : ' '
-              )}
-              type="button"
+            <FavoriteButton
+              baseClass="offer"
+              isFavorite={offer.isFavorite}
+              id={offer.id}
             >
               <svg className="offer__bookmark-icon" width="31" height="33">
                 <use xlinkHref="#icon-bookmark"></use>
               </svg>
-              <span className="visually-hidden">
-                {offer.isFavorite ? 'In bookmarks' : 'To bookmarks'}
-              </span>
-            </button>
+            </FavoriteButton>
           </div>
           <div className="offer__rating rating">
             <PlaceRating place="offer" rating={offer.rating}>
@@ -91,7 +100,15 @@ export const Offer = (props: OfferProps): JSX.Element => {
           <div className="offer__host">
             <h2 className="offer__host-title">{offer.title}</h2>
             <div className="offer__host-user user">
-              <div className="offer__avatar-wrapper offer__avatar-wrapper--pro user__avatar-wrapper">
+              <div
+                className={classNames(
+                  'offer__avatar-wrapper',
+                  'user__avatar-wrapper',
+                  {
+                    'offer__avatar-wrapper--pro': offer.host.isPro,
+                  }
+                )}
+              >
                 <img
                   className="offer__avatar user__avatar"
                   src={offer.host.avatarUrl}
@@ -109,20 +126,25 @@ export const Offer = (props: OfferProps): JSX.Element => {
               <p className="offer__text">{offer.description}</p>
             </div>
           </div>
-          <section className="offer__reviews reviews">
-            <h2 className="reviews__title">
-              Reviews ·{' '}
-              <span className="reviews__amount">{REVIEWS.length}</span>
-            </h2>
-            <ReviewList reviews={REVIEWS} />
-            <ReviewForm />
-          </section>
+          <ReviewForm />
         </div>
       </div>
-      <Map offers={nearPlaceOffers} city={offer.city} place="offer" />
-      <div className="container">
-        <NearPlaces offers={nearPlaceOffers} />
-      </div>
+
+      {nearPlaceOffers && (
+        <>
+          <Map
+            currentOffer={offer}
+            offers={[offer, ...nearPlaceOffers]}
+            city={offer.city}
+            place="offer"
+          />
+          <div className="container">
+            <NearPlaces offers={nearPlaceOffers} />
+          </div>
+        </>
+      )}
     </section>
+  ) : (
+    <Spinner />
   );
 };

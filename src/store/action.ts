@@ -1,12 +1,80 @@
-import { createAction } from '@reduxjs/toolkit';
-import { CityType, OfferType, SortNameType } from '../lib/types';
+import { createAction, PrepareAction } from '@reduxjs/toolkit';
+import { StatusCodes } from 'http-status-codes';
+import { AppRoute, AuthorizationStatus } from '../const';
+import {
+  AuthInfoType,
+  CityType,
+  OfferInfoType,
+  OfferType,
+  ReviewType,
+  SortNameType,
+} from '../lib/types';
 
-export const Action = {
-  SET_CURRENT_CITY: 'city/set',
-  SET_OFFERS: 'offers/set',
-  SET_SORTING: 'sorting/set'
-};
+export const setCurrentCity = createAction<PrepareAction<CityType>>(
+  'setCurrentCity',
+  (city: CityType) => ({ payload: city })
+);
 
-export const setCurrentCity = createAction<CityType>(Action.SET_CURRENT_CITY);
-export const setOffers = createAction<OfferType[]>(Action.SET_OFFERS);
-export const setCurrentSort = createAction<SortNameType>(Action.SET_SORTING);
+export const setOffers = createAction<PrepareAction<OfferType[]>>(
+  'setOffers',
+  (offers: OfferType[]) => ({ payload: offers })
+);
+
+export const setFavoriteOffers = createAction<PrepareAction<OfferType[]>>(
+  'setFavoriteOffers',
+  (offers: OfferType[]) => ({ payload: offers })
+);
+
+export const clearFavoritesOffers = createAction('clearFavoritesOffers');
+
+export const appendFavoriteOffer = createAction<PrepareAction<OfferType>>(
+  'appendFavoriteOffer',
+  (offer: OfferType) => ({ payload: offer })
+);
+
+export const deleteFavoriteOffer = createAction<PrepareAction<OfferType>>(
+  'deleteFavoriteOffer',
+  (offer: OfferType) => ({ payload: offer })
+);
+
+export const setNearPlaceOffers = createAction<PrepareAction<OfferType[]>>(
+  'setNearbyOffers',
+  (nearbyOffers: OfferType[]) => ({ payload: nearbyOffers })
+);
+
+export const setOffer = createAction<PrepareAction<OfferInfoType>>(
+  'setOffer',
+  (offer: OfferInfoType) => ({ payload: offer })
+);
+
+export const setReviews = createAction<PrepareAction<ReviewType[]>>(
+  'setReviews',
+  (reviews: ReviewType[]) => ({ payload: reviews })
+);
+
+export const appendReview = createAction<PrepareAction<ReviewType>>(
+  'appendReview',
+  (review: ReviewType) => ({ payload: review })
+);
+
+export const setCurrentSort = createAction<PrepareAction<SortNameType>>(
+  'setCurrentSort',
+  (sort: SortNameType) => ({ payload: sort })
+);
+
+export const setAuthorizationStatus = createAction<
+  PrepareAction<AuthorizationStatus>
+>('setAuthorizationStatus', (status: AuthorizationStatus) => ({
+  payload: status,
+}));
+
+export const setOffersLoading = createAction<boolean>('setOffersLoading');
+
+export const setUserProfile = createAction<PrepareAction<AuthInfoType>>(
+  'setUserProfile',
+  (user: AuthInfoType) => ({ payload: user })
+);
+
+export const redirectToRoute = createAction<AppRoute>('redirectToRoute');
+
+export const setResponseStatus = createAction<StatusCodes>('setResponseStatus');

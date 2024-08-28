@@ -79,4 +79,3 @@ export const PlaceCard = (props: PlaceCardProps): JSX.Element => {
     </article>
   );
 };
-
