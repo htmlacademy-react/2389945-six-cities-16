@@ -1,9 +1,15 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosError, AxiosInstance } from 'axios';
-import { ApiRoute, AuthorizationStatus } from '../const';
+import { AppRoute, ApiRoute, AuthorizationStatus } from '../const';
 import { dropToken, setToken } from '../services/token';
 import { AppDispatch, State } from '../lib/state';
+import { browserHistory } from '../browser-history';
+//import { redirectToRoute } from './action';
 //import { useNavigate } from 'react-router-dom';
+
+//import { createBrowserHistory } from 'history';
+//const browserHistory = createBrowserHistory();
+
 
 import {
   AuthInfoType,
@@ -149,6 +155,7 @@ export const login = createAsyncThunk<
     //console.log('123');
     //dispatch(redirectToRoute(AppRoute.Root));
     //navigate(AppRoute.Root);
+    browserHistory.push(AppRoute.Root);
   } catch (error) {
     dispatch(setAuthorizationStatus(AuthorizationStatus.NoAuth));
   }

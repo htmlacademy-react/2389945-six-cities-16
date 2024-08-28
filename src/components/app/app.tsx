@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { Header } from '../header/header';
 import { MainScreen } from '../main-screen/main-screen';
 import { Login } from '../login/login';
@@ -10,12 +10,14 @@ import { AppRoute, AuthorizationStatus } from '../../const';
 import { Spinner } from '../spinner/spinner';
 import { useAppSelector } from '../../hooks';
 import { StatusCodes } from 'http-status-codes';
+import { HistoryRouter } from '../history-router/history-router';
 
 //import { OFFERS } from '../../mocks/offers';
 //import { OFFER_INFO } from '../../mocks/offer-info';
 //import { useAppDispatch } from '../../hooks';
 //import { setOffers } from '../../store/action';
-//import type { BrowserHistory } from 'history';
+import { createBrowserHistory } from 'history';
+const browserHistory = createBrowserHistory();
 
 export const App = (): JSX.Element => {
   const isOffersLoading = useAppSelector((state) => state.isOffersLoading);
@@ -33,7 +35,7 @@ export const App = (): JSX.Element => {
   }
 
   return (
-    <BrowserRouter>
+    <HistoryRouter history={browserHistory}>
       <Routes>
         <Route
           path={AppRoute.Root}
@@ -53,6 +55,6 @@ export const App = (): JSX.Element => {
         </Route>
         <Route path={AppRoute.Login} element={<Login />} />
       </Routes>
-    </BrowserRouter>
+    </HistoryRouter>
   );
 };
